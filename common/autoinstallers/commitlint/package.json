@@ -1,0 +1,9 @@
+{
+  "name": "commitlint",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@commitlint/cli": "^17.0.1",
+    "@commitlint/config-conventional": "^17.0.0"
+  }
+}

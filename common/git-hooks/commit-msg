@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# The commit-msg hook takes one parameter, which is the path to a temporary file that
+# contains the commit message written by the developer. If this script exits non-zero,
+# Git aborts the commit process so can be used to validate the project state or commit
+# message before allowing a commit to go through.
+
+# Invoke the "rush commitlint" custom command to validate the commit message against
+# conventional spec. The command is defined in common/config/rush/command-line.json
+# and uses the "commitlint" autoinstaller.
+node common/scripts/install-run-rush.js commitlint || exit $?
