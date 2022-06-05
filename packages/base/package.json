@@ -1,0 +1,14 @@
+{
+  "name": "@organize/base",
+  "version": "0.0.0",
+  "private": true,
+  "main": "source/index.ts",
+  "module": "source/index.ts",
+  "dependencies": {
+    "vue": "^3.2.36",
+    "@mdi/js": "^6.7.96"
+  },
+  "devDependencies": {
+    "@organize/typescript": "workspace:*"
+  }
+}

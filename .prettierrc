@@ -1,0 +1,35 @@
+# Opinionated code formatter which removes all original styling and
+# ensures that all outputted code conforms to a consistent style by
+# reprinting the parsed AST with its own rules.
+# © Prettier <https://prettier.io>
+
+# Consistent quotes.
+quoteProps: consistent
+
+# Single quotes for string.
+singleQuote: true
+
+# Closing bracket position.
+bracketSameLine: true
+
+# No commas on multi-line.
+trailingComma: none
+
+# Indent script and style.
+vueIndentScriptAndStyle: true
+
+# Framework using pug engine.
+pugFramework: vue
+
+# Pug attribute single quotes.
+pugSingleQuote: false
+
+# Pug attribute wrap threshold.
+pugWrapAttributesThreshold: 1
+
+# Pug single file component indent.
+pugSingleFileComponentIndentation: true
+
+# Directory to search for external plugins.
+plugins:
+  - common/autoinstallers/prettier/node_modules/@prettier/plugin-pug

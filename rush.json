@@ -11,7 +11,20 @@
   "projects": [
     {
       "packageName": "@organize/website",
-      "projectFolder": "app/website"
+      "projectFolder": "apps/website"
+    },
+    {
+      "packageName": "@organize/base",
+      "projectFolder": "packages/base"
+    },
+    {
+      "packageName": "@organize/layout",
+      "projectFolder": "packages/layout"
+    },
+    {
+      "packageName": "@organize/typescript",
+      "projectFolder": "common/tools/typescript",
+      "shouldPublish": false
     }
   ]
 }

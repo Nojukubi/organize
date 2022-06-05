@@ -1,0 +1,10 @@
+{
+  "include": ["vite.config.ts", "./pwa/manifest.json", "./build/*.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true
+  }
+}

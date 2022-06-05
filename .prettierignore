@@ -5,10 +5,12 @@
 # Rush
 .rush
 common/temp
+common/changes
+common/scripts
+common/config
 node_modules
-
-# Build
-dist
+CHANGELOG.*
+pnpm-lock.*
 
 # Log
 *.log

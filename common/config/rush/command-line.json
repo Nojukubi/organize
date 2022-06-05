@@ -15,7 +15,7 @@
       "summary": "Invokes prettier to format all files",
       "safeForSimultaneousRushProcesses": true,
       "autoinstallerName": "prettier",
-      "shellCommand": "prettier ."
+      "shellCommand": "prettier . --write"
     },
     {
       "name": "prettier-quick",

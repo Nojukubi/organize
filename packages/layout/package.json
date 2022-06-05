@@ -1,0 +1,15 @@
+{
+  "name": "@organize/layout",
+  "version": "0.0.0",
+  "private": true,
+  "main": "source/index.ts",
+  "module": "source/index.ts",
+  "dependencies": {
+    "@organize/base": "workspace:*",
+    "vue": "^3.2.36"
+  },
+  "devDependencies": {
+    "@stylize/sass-mixin": "^1.1.0",
+    "@organize/typescript": "workspace:*"
+  }
+}
