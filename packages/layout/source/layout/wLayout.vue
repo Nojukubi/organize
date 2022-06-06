@@ -1,5 +1,5 @@
 <template lang="pug">
-  .w-layout
+  .w-layout(:class="cssClass")
     slot
 </template>
 
@@ -18,16 +18,28 @@
       validator: (value: string): boolean =>
         // Validate the view prop based on defined format.
         /^([hl])h([hl]) lcr ([fr])f([fr])$/.test(value.toLowerCase() ?? '')
+    },
+    theme: {
+      type: String,
+      default: 'light'
     }
+  });
+
+  // Create the reactive with general layout config.
+  const layout: LayoutConfig = reactive({
+    theme: props.theme,
+    blocks: {}
+  });
+
+  // Create the class name based on the defined theme.
+  const cssClass: ComputedRef<string> = computed((): string => {
+    return `w-layout--${props.theme}`;
   });
 
   // Create the 2d grid based on the defined prop view.
   const grid: ComputedRef<string[][]> = computed((): string[][] =>
     props.view.match(/(\w)+/g).map((row: string): string[] => row.split(''))
   );
-
-  // Create the reactive with general layout config.
-  const layout: LayoutConfig = reactive({ blocks: {} });
 
   // Propagate the layout config to its children.
   provide('$layout', layout);
