@@ -30,6 +30,6 @@ pugWrapAttributesThreshold: 1
 # Pug single file component indent.
 pugSingleFileComponentIndentation: true
 
-# Directory to search for external plugins.
+# Plugins to be used during formatting.
 plugins:
   - common/autoinstallers/prettier/node_modules/@prettier/plugin-pug

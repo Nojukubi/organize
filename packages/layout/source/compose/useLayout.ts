@@ -11,7 +11,7 @@ export function useLayout() {
 
   // Create the CSS class based on the block position in CSS grid.
   function getBlockAreaClass(block: string): string {
-    return `area-${layout?.blocks[block][0]}-${layout?.blocks[block][1]}`;
+    return `area-${layout?.blocks[block].value[0]}-${layout?.blocks[block].value[1]}`;
   }
 
   return { layout, getBlockAreaClass };

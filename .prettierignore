@@ -8,6 +8,7 @@ common/temp
 common/changes
 common/scripts
 common/config
+package-deps*
 node_modules
 CHANGELOG.*
 pnpm-lock.*

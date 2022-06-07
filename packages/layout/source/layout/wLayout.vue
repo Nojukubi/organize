@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, provide, reactive } from 'vue';
+  import { computed, provide, shallowReactive } from 'vue';
   import type { ComputedRef } from 'vue';
   import type { LayoutConfig } from './wLayoutConfig';
 
@@ -26,7 +26,7 @@
   });
 
   // Create the reactive with general layout config.
-  const layout: LayoutConfig = reactive({
+  const layout: LayoutConfig = shallowReactive({
     theme: props.theme,
     blocks: {}
   });
@@ -40,9 +40,6 @@
   const grid: ComputedRef<string[][]> = computed((): string[][] =>
     props.view.match(/(\w)+/g).map((row: string): string[] => row.split(''))
   );
-
-  // Propagate the layout config to its children.
-  provide('$layout', layout);
 
   // Calculated CSS grid position of the header.
   layout.blocks.header = computed((): number[] => {
@@ -69,6 +66,9 @@
       [,,block]: string[]): string[] => [...output, block], []);
     return getAreaPosition('r', blocks);
   });
+
+  // Propagate the layout config to its children.
+  provide('$layout', layout);
 
   /**
    * Determine the position of block in the CSS grid.
