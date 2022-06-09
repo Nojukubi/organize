@@ -1,10 +1,8 @@
 {
-  "include": ["vite.config.ts", "./pwa/manifest.json", "./build/*.ts"],
+  "extends": "@organize/typescript/tsconfig.node.json",
+  "include": ["vite.config.ts", "./pwa/manifest.json"],
   "compilerOptions": {
-    "composite": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true
   }
 }

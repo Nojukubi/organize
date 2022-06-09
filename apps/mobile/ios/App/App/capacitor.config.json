@@ -1,0 +1,6 @@
+{
+  "appId": "com.yokize.organize",
+  "appName": "@organize/mobile",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

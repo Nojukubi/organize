@@ -5,10 +5,10 @@
   "main": "source/index.ts",
   "module": "source/index.ts",
   "dependencies": {
-    "vue": "^3.2.36",
+    "vue": "^3.2.37",
     "@mdi/js": "^6.7.96"
   },
   "devDependencies": {
-    "@organize/typescript": "workspace:*"
+    "@organize/typescript": "0.0.0"
   }
 }

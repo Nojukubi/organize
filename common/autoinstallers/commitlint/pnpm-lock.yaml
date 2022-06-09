@@ -1,12 +1,12 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@commitlint/cli': ^17.0.1
-  '@commitlint/config-conventional': ^17.0.0
+  '@commitlint/cli': ^17.0.2
+  '@commitlint/config-conventional': ^17.0.2
 
 dependencies:
-  '@commitlint/cli': 17.0.1
-  '@commitlint/config-conventional': 17.0.0
+  '@commitlint/cli': 17.0.2
+  '@commitlint/config-conventional': 17.0.2
 
 packages:
 
@@ -31,8 +31,8 @@ packages:
       js-tokens: 4.0.0
     dev: false
 
-  /@commitlint/cli/17.0.1:
-    resolution: {integrity: sha512-5xT1G5pnynR0tk/ms8Ji7yr9lZCeQs4GLVVtyK/gw20w+enoLTVuRKKY9zg88hy9FoCycc/W8iip2xv3c8payg==}
+  /@commitlint/cli/17.0.2:
+    resolution: {integrity: sha512-Axe89Js0YzGGd4gxo3JLlF7yIdjOVpG1LbOorGc6PfYF+drBh14PvarSDLzyd2TNqdylUCq9wb9/A88ZjIdyhA==}
     engines: {node: '>=v14'}
     hasBin: true
     dependencies:
@@ -51,11 +51,11 @@ packages:
       - '@swc/wasm'
     dev: false
 
-  /@commitlint/config-conventional/17.0.0:
-    resolution: {integrity: sha512-jttJXBIq3AuQCvUVwxSctCwKfHxxbALE0IB9OIHYCu/eQdOzPxN72pugeZsWDo1VK/T9iFx+MZoPb6Rb1/ylsw==}
+  /@commitlint/config-conventional/17.0.2:
+    resolution: {integrity: sha512-MfP0I/JbxKkzo+HXWB7B3WstGS4BiniotU3d3xQ9gK8cR0DbeZ4MuyGCWF65YDyrcDTS3WlrJ3ndSPA1pqhoPw==}
     engines: {node: '>=v14'}
     dependencies:
-      conventional-changelog-conventionalcommits: 4.6.3
+      conventional-changelog-conventionalcommits: 5.0.0
     dev: false
 
   /@commitlint/config-validator/17.0.0:
@@ -386,8 +386,8 @@ packages:
       q: 1.5.1
     dev: false
 
-  /conventional-changelog-conventionalcommits/4.6.3:
-    resolution: {integrity: sha512-LTTQV4fwOM4oLPad317V/QNQ1FY4Hju5qeBIM1uTHbrnCE+Eg4CdRZ3gO2pUeR+tzWdp80M2j3qFFEDWVqOV4g==}
+  /conventional-changelog-conventionalcommits/5.0.0:
+    resolution: {integrity: sha512-lCDbA+ZqVFQGUj7h9QBKoIpLhl8iihkO0nCTyRNzuXtcd7ubODpYB04IFy31JloiJgG0Uovu8ot8oxRzn7Nwtw==}
     engines: {node: '>=10'}
     dependencies:
       compare-func: 2.0.0
@@ -904,7 +904,7 @@ packages:
     dev: false
 
   /q/1.5.1:
-    resolution: {integrity: sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=}
+    resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     dev: false
 
@@ -950,7 +950,7 @@ packages:
     dev: false
 
   /require-directory/2.1.1:
-    resolution: {integrity: sha1-jGStX9MNqxyXbiNE/+f3kqam30I=}
+    resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
     dev: false
 

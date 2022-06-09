@@ -7,7 +7,6 @@
     "strict": true,
     "skipLibCheck": true,
     "noImplicitAny": false,
-    "strictNullChecks": false,
     "esModuleInterop": true,
     "isolatedModules": true,
     "resolveJsonModule": true,

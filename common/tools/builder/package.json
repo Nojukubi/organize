@@ -1,0 +1,19 @@
+{
+  "name": "@organize/builder",
+  "version": "0.0.0",
+  "private": true,
+  "main": "vite.config.js",
+  "module": "vite.config.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "de-indent": "^1.0.2",
+    "vite": "^2.9.10",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@organize/typescript": "0.0.0"
+  }
+}

@@ -4,7 +4,7 @@ import type { LayoutConfig } from '../layout/wLayoutConfig';
 // Composable to handle the layout with additional helpers.
 export function useLayout() {
   // Inject the reactive config from the parent Layout.
-  const layout: UnwrapRef<LayoutConfig> = inject<LayoutConfig>('$layout');
+  const layout: UnwrapRef<LayoutConfig> | undefined = inject<LayoutConfig>('$layout');
 
   // Make sure that config exists and component under layout.
   if (!layout) console.error('Component must be wrapped by Layout');

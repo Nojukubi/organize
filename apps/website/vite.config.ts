@@ -1,27 +1,18 @@
 import { defineConfig } from 'vite';
-import { VitePWA as pwa } from 'vite-plugin-pwa';
-import vue from '@vitejs/plugin-vue';
-import deIndent from './build/deIndent';
+import buildConfig from '@organize/builder';
+import { VitePWA as pluginPWA } from 'vite-plugin-pwa';
 import manifest from './pwa/manifest.json';
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  resolve: {
-    alias: [
-      {
-        find: /~(.+)/,
-        replacement: '$1'
-      }
-    ]
-  },
-  plugins: [
-    deIndent(),
-    vue(),
-    pwa({
-      srcDir: './pwa',
-      strategies: 'injectManifest',
-      filename: 'service-worker.js',
-      manifest
-    })
-  ]
-});
+// Register the pwa plugin.
+buildConfig.plugins.push([
+  pluginPWA({
+    srcDir: './pwa',
+    strategies: 'injectManifest',
+    filename: 'service-worker.js',
+    manifest
+  })
+]);
+
+// Define and export vite configs.
+// https://vitejs.dev/config
+export default defineConfig(buildConfig);

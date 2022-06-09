@@ -37,8 +37,10 @@
   });
 
   // Create the 2d grid based on the defined prop view.
-  const grid: ComputedRef<string[][]> = computed((): string[][] =>
-    props.view.match(/(\w)+/g).map((row: string): string[] => row.split(''))
+  const grid: ComputedRef<string[][]> = computed(
+    // prettier-ignore
+    (): string[][] => props.view.match(/(\w)+/g)
+      ?.map((row: string): string[] => row.split('')) ?? []
   );
 
   // Calculated CSS grid position of the header.

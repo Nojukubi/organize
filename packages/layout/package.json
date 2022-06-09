@@ -5,11 +5,11 @@
   "main": "source/index.ts",
   "module": "source/index.ts",
   "dependencies": {
-    "@organize/base": "workspace:*",
-    "vue": "^3.2.36"
+    "@organize/base": "0.0.0",
+    "vue": "^3.2.37"
   },
   "devDependencies": {
     "@stylize/sass-mixin": "^1.1.0",
-    "@organize/typescript": "workspace:*"
+    "@organize/typescript": "0.0.0"
   }
 }

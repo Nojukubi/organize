@@ -2,9 +2,6 @@
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/rush.schema.json",
   "rushVersion": "5.70.0",
   "pnpmVersion": "6.32.13",
-  "pnpmOptions": {
-    "useWorkspaces": true
-  },
   "projectFolderMaxDepth": 5,
   "suppressNodeLtsWarning": true,
   "ensureConsistentVersions": true,
@@ -14,12 +11,21 @@
       "projectFolder": "apps/website"
     },
     {
+      "packageName": "@organize/mobile",
+      "projectFolder": "apps/mobile"
+    },
+    {
       "packageName": "@organize/base",
       "projectFolder": "packages/base"
     },
     {
       "packageName": "@organize/layout",
       "projectFolder": "packages/layout"
+    },
+    {
+      "packageName": "@organize/builder",
+      "projectFolder": "common/tools/builder",
+      "shouldPublish": false
     },
     {
       "packageName": "@organize/typescript",
