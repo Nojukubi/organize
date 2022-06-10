@@ -10,13 +10,13 @@
   "dependencies": {
     "@capacitor/core": "^3.5.1",
     "@capacitor/ios": "^3.5.1",
-    "@organize/layout": "0.0.0",
+    "@framework/layout": "0.0.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {
     "@capacitor/cli": "^3.5.1",
-    "@organize/builder": "0.0.0",
-    "@organize/typescript": "0.0.0",
+    "@internal/builder": "0.0.0",
+    "@internal/typescript": "0.0.0",
     "@stylize/sass-func": "^1.0.4",
     "@stylize/sass-mixin": "^1.1.0",
     "sass": "^1.52.2",

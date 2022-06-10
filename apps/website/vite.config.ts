@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import buildConfig from '@organize/builder';
+import buildConfig from '@internal/builder';
 import { VitePWA as pluginPWA } from 'vite-plugin-pwa';
 import manifest from './pwa/manifest.json';
 

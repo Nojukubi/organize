@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { useLayout } from '../compose';
+  import { useLayout } from '../layout/useLayout';
   import type { ComputedRef, CSSProperties } from 'vue';
 
   // Defines the props.

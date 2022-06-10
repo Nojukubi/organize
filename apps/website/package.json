@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@organize/layout": "0.0.0",
+    "@framework/layout": "0.0.0",
     "vue": "^3.2.37",
     "workbox-routing": "^6.5.3",
     "workbox-strategies": "^6.5.3",
@@ -16,8 +16,8 @@
     "workbox-window": "^6.5.3"
   },
   "devDependencies": {
-    "@organize/builder": "0.0.0",
-    "@organize/typescript": "0.0.0",
+    "@internal/builder": "0.0.0",
+    "@internal/typescript": "0.0.0",
     "@stylize/sass-func": "^1.0.4",
     "@stylize/sass-mixin": "^1.1.0",
     "sass": "^1.52.2",

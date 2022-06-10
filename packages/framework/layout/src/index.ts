@@ -1,3 +1,4 @@
+export * from './layout/useLayout';
 export { default as wLayout } from './layout/wLayout.vue';
 export { default as wDrawer } from './drawer/wDrawer.vue';
 export { default as wHeader } from './header/wHeader.vue';

@@ -1,4 +1,4 @@
 {
-  "extends": "@organize/typescript/tsconfig.node.json",
+  "extends": "@internal/typescript/tsconfig.node.json",
   "include": ["vite.config.ts"]
 }

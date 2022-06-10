@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import buildConfig from '@organize/builder';
+import buildConfig from '@internal/builder';
 
 // Define and export vite configs.
 // https://vitejs.dev/config

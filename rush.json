@@ -15,20 +15,20 @@
       "projectFolder": "apps/mobile"
     },
     {
-      "packageName": "@organize/base",
-      "projectFolder": "packages/base"
+      "packageName": "@framework/base",
+      "projectFolder": "packages/framework/base"
     },
     {
-      "packageName": "@organize/layout",
-      "projectFolder": "packages/layout"
+      "packageName": "@framework/layout",
+      "projectFolder": "packages/framework/layout"
     },
     {
-      "packageName": "@organize/builder",
+      "packageName": "@internal/builder",
       "projectFolder": "common/tools/builder",
       "shouldPublish": false
     },
     {
-      "packageName": "@organize/typescript",
+      "packageName": "@internal/typescript",
       "projectFolder": "common/tools/typescript",
       "shouldPublish": false
     }

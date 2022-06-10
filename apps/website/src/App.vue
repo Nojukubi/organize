@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { wLayout, wDrawer, wHeader, wFooter, wContent } from '@organize/layout/source';
+  import { wLayout, wDrawer, wHeader, wFooter, wContent } from '@framework/layout';
 </script>
 
 <style lang="sass">

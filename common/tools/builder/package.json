@@ -1,5 +1,5 @@
 {
-  "name": "@organize/builder",
+  "name": "@internal/builder",
   "version": "0.0.0",
   "private": true,
   "main": "vite.config.js",
@@ -14,6 +14,6 @@
     "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@organize/typescript": "0.0.0"
+    "@internal/typescript": "0.0.0"
   }
 }

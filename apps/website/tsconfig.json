@@ -1,5 +1,5 @@
 {
-  "extends": "@organize/typescript",
+  "extends": "@internal/typescript",
   "include": ["src/**/*.ts", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

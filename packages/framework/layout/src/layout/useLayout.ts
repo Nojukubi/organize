@@ -1,5 +1,10 @@
-import { inject, UnwrapRef } from 'vue';
-import type { LayoutConfig } from '../layout/wLayoutConfig';
+import { inject, UnwrapRef, ComputedRef } from 'vue';
+
+// Describes the layout config.
+export interface LayoutConfig {
+  theme: string;
+  blocks: Record<string, ComputedRef<number[]>>;
+}
 
 // Composable to handle the layout with additional helpers.
 export function useLayout() {

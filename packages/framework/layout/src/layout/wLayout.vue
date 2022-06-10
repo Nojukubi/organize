@@ -6,7 +6,7 @@
 <script lang="ts" setup>
   import { computed, provide, shallowReactive } from 'vue';
   import type { ComputedRef } from 'vue';
-  import type { LayoutConfig } from './wLayoutConfig';
+  import type { LayoutConfig } from './useLayout';
 
   // Defines the props.
   const props = defineProps({
