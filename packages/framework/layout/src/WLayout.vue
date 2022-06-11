@@ -5,23 +5,23 @@
 
 <script lang="ts" setup>
   import { computed, provide, shallowReactive } from 'vue';
-  import type { ComputedRef } from 'vue';
-  import type { LayoutConfig } from './useLayout';
+  import type { PropType, ComputedRef } from 'vue';
+  import type { LayoutConfig } from './WLayoutConfig';
 
   // Defines the props.
   const props = defineProps({
+    theme: {
+      type: String as PropType<string>,
+      default: 'light'
+    },
     view: {
-      type: String,
+      type: String as PropType<string>,
       // Header and footer are stretched by default.
       default: 'hhh lcr fff',
       // Need to validate as it's critical for layout.
-      validator: (value: string): boolean =>
+      validator: (v: string): boolean =>
         // Validate the view prop based on defined format.
-        /^([hl])h([hl]) lcr ([fr])f([fr])$/.test(value.toLowerCase() ?? '')
-    },
-    theme: {
-      type: String,
-      default: 'light'
+        /^([hl])h([hl]) lcr ([fr])f([fr])$/.test(v.toLowerCase() ?? '')
     }
   });
 
@@ -30,6 +30,9 @@
     theme: props.theme,
     blocks: {}
   });
+
+  // Propagate the layout config to its children.
+  provide('$layout', layout);
 
   // Create the class name based on the defined theme.
   const cssClass: ComputedRef<string> = computed((): string => {
@@ -69,9 +72,6 @@
     return getAreaPosition('r', blocks);
   });
 
-  // Propagate the layout config to its children.
-  provide('$layout', layout);
-
   /**
    * Determine the position of block in the CSS grid.
    * @param id View ID of the block which is placed on grid.
@@ -84,7 +84,7 @@
 </script>
 
 <style lang="sass" scoped>
-  @use '@stylize/sass-mixin' as *
+  @use '~@stylize/sass-mixin' as *
 
   .w-layout
     display: grid

@@ -1,4 +1,4 @@
 <template lang="pug">
-  .w-list-item-avatar
+  .w-list-item-side
     slot
 </template>

@@ -19,6 +19,10 @@
       "projectFolder": "packages/framework/base"
     },
     {
+      "packageName": "@framework/calendar",
+      "projectFolder": "packages/framework/calendar"
+    },
+    {
       "packageName": "@framework/layout",
       "projectFolder": "packages/framework/layout"
     },

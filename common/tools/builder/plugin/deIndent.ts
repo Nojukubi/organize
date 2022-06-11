@@ -1,4 +1,3 @@
-import deIndent from 'de-indent';
 import type { Plugin, TransformResult } from 'vite';
 
 // RegExp to determine template file.
@@ -6,6 +5,11 @@ const fileRegExp: RegExp = /vue&type=template/g;
 
 // RegExp to find and replace template content.
 const tplRegExp: RegExp = /(?<=<template[^>]*>)(.|\n)*?(?=<\/template>)/gm;
+
+// Helper to remove the lead indent template.
+function deIndent(source: string): string {
+  return source?.replace(/^\s+/, '');
+}
 
 // Plugin to remove the lead indent in templates.
 export default function (): Plugin {

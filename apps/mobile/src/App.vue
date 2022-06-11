@@ -1,19 +1,19 @@
 <template lang="pug">
-  wLayout.application(
+  w-layout.application(
     view="lhr lcr lfr",
     data-application)
-    wHeader
+    w-header
       | Header
-    wDrawer
+    w-drawer
       | Drawer
-    wContent
+    w-content
       | Content
-    wFooter
+    w-footer
       | Footer
 </template>
 
 <script lang="ts" setup>
-  import { wLayout, wDrawer, wHeader, wFooter, wContent } from '@framework/layout';
+  import { WLayout, WDrawer, WHeader, WFooter, WContent } from '@framework/layout';
 </script>
 
 <style lang="sass">

@@ -1,5 +1,5 @@
-export { default as wIcon } from './icon/wIcon.vue';
-export { default as wList } from './list/wList.vue';
-export { default as wListItem } from './list/wListItem.vue';
-export { default as wListItemAvatar } from './list/wListItemAvatar.vue';
-export { default as wListItemTitle } from './list/wListItemTitle.vue';
+export { default as WIcon } from './WIcon.vue';
+export { default as WList } from './WList.vue';
+export { default as WListItem } from './WListItem.vue';
+export { default as WListItemAvatar } from './WListItemSide.vue';
+export { default as WListItemTitle } from './WListItemTitle.vue';

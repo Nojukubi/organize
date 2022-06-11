@@ -1,18 +1,13 @@
-import { inject, UnwrapRef, ComputedRef } from 'vue';
+import { inject, UnwrapRef } from 'vue';
+import { LayoutConfig } from '../WLayoutConfig';
 
-// Describes the layout config.
-export interface LayoutConfig {
-  theme: string;
-  blocks: Record<string, ComputedRef<number[]>>;
-}
-
-// Composable to handle the layout with additional helpers.
+// Composable to handle the layout with helpers.
 export function useLayout() {
   // Inject the reactive config from the parent Layout.
   const layout: UnwrapRef<LayoutConfig> | undefined = inject<LayoutConfig>('$layout');
 
   // Make sure that config exists and component under layout.
-  if (!layout) console.error('Component must be wrapped by Layout');
+  if (!layout) throw new Error('Component must be wrapped by Layout');
 
   // Create the CSS class based on the block position in CSS grid.
   function getBlockAreaClass(block: string): string {

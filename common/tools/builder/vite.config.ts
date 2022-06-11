@@ -1,6 +1,6 @@
-import { AliasOptions, UserConfig } from 'vite';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginDeIndent from './plugin/deIndent';
+import type { AliasOptions, UserConfig } from 'vite';
 
 // Create the module aliases.
 const alias: AliasOptions = [

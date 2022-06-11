@@ -1,5 +1,6 @@
 <template lang="pug">
   component.w-drawer(
+    v-if="modelValue",
     :is="tag",
     :class="classCss",
     :style="styleCss")
@@ -8,52 +9,50 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { useLayout } from '../layout/useLayout';
+  import { useLayout } from './compose';
   import type { ComputedRef, CSSProperties } from 'vue';
 
   // Defines the props.
-  const props = defineProps({
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    side: {
-      type: String,
-      default: 'left'
-    },
-    width: {
-      type: Number,
-      default: 256
-    },
-    widthUnit: {
-      type: String,
-      default: 'px'
+  const props = withDefaults(
+    defineProps<{
+      modelValue: boolean;
+      tag: string;
+      side: 'left' | 'right';
+      width: number;
+      widthUnit: 'px' | 'em' | 'rem';
+    }>(),
+    {
+      modelValue: true,
+      tag: 'div',
+      side: 'left',
+      width: 256,
+      widthUnit: 'px'
     }
-  });
+  );
 
   // Composable to handle the Layout.
-  const { getBlockAreaClass } = useLayout();
+  const { layout, getBlockAreaClass } = useLayout();
 
   // Create the class names based on the defined props.
-  const classCss: ComputedRef<string[]> = computed((): string[] => {
-    return [`w-drawer--${props.side}`, getBlockAreaClass(props.side)];
+  const classCss: ComputedRef<any[]> = computed((): any[] => {
+    return [`w-drawer--${props.side}`, getBlockAreaClass(props.side), { 'w-drawer--open': props.modelValue }];
   });
 
   // Create the css styles based on the defined props.
   const styleCss: ComputedRef<CSSProperties> = computed((): CSSProperties => {
-    return { width: `${props.width}${props.widthUnit}` };
+    return {
+      width: `${props.width}${props.widthUnit}`,
+      [`margin-${props.side}`]: props.modelValue ? 0 : `-${props.width}${props.widthUnit}`
+    };
   });
 </script>
 
 <style lang="sass" scoped>
-  @use '@stylize/sass-mixin' as *
+  @use '~@stylize/sass-mixin' as *
 
   .w-drawer
-    transition: margin 2s
-    background: lightgrey
-
-    +media('>=md')
-      margin: 0
+    transition: margin 1s
+    background: var(--drawer-background, lightgrey)
 
     @for $row-start from 1 through 2
       @for $row-end from 3 through 4

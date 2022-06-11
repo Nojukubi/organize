@@ -1,8 +1,4 @@
 {
   "extends": "@internal/typescript/tsconfig.node.json",
-  "include": ["vite.config.ts", "./pwa/manifest.json"],
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+  "include": ["vite.config.ts", "./pwa/manifest.json"]
 }
