@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@framework/layout": "0.0.0",
+    "@framework/calendar": "0.0.0",
     "vue": "^3.2.37",
     "workbox-routing": "^6.5.3",
     "workbox-strategies": "^6.5.3",
@@ -22,7 +23,6 @@
     "@stylize/sass-mixin": "^1.1.0",
     "sass": "^1.52.2",
     "pug": "^3.0.2",
-    "ts-node": "^10.8.1",
     "typescript": "^4.7.3",
     "vite": "^2.9.10",
     "vue-tsc": "^0.37.3",

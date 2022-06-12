@@ -1,19 +1,20 @@
 <template lang="pug">
-  wLayout.application(
+  w-layout.application(
     view="lhr lcr lfr",
     data-application)
-    wHeader
+    w-header
       | Header
-    wDrawer
+    w-drawer
       | Drawer
-    wContent
-      | Content
-    wFooter
+    w-content
+      wCalendar
+    w-footer
       | Footer
 </template>
 
 <script lang="ts" setup>
-  import { wLayout, wDrawer, wHeader, wFooter, wContent } from '@framework/layout';
+  import { WLayout, WDrawer, WHeader, WFooter, WContent } from '@framework/layout';
+  import { wCalendar } from '@framework/calendar';
 </script>
 
 <style lang="sass">

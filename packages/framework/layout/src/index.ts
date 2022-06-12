@@ -1,6 +1,6 @@
-export * from './layout/useLayout';
-export { default as wLayout } from './layout/wLayout.vue';
-export { default as wDrawer } from './drawer/wDrawer.vue';
-export { default as wHeader } from './header/wHeader.vue';
-export { default as wFooter } from './footer/wFooter.vue';
-export { default as wContent } from './content/wContent.vue';
+export * from './compose';
+export { default as WLayout } from './WLayout.vue';
+export { default as WDrawer } from './WDrawer.vue';
+export { default as WHeader } from './WHeader.vue';
+export { default as WFooter } from './WFooter.vue';
+export { default as WContent } from './WContent.vue';

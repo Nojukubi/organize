@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
-    "lib": ["esnext", "dom", "ScriptHost"],
+    "lib": ["ESNext", "DOM", "ScriptHost"],
     "typeRoots": [
       "./node_modules/@types",
       "./node_modules/@organize/typescript/global.d.ts",
