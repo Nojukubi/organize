@@ -34,7 +34,9 @@ export interface MonthEntity {
 }
 
 // Describes the options to create week.
-export interface WeekOptions {}
+export interface WeekOptions {
+  number: number;
+}
 
 // Describes the options to create month.
 export interface MonthOptions {
@@ -103,7 +105,9 @@ function createMonth(options: MonthOptions): MonthEntity {
 }
 
 // Create the week calendar based on options.
-function createWeek(options: WeekOptions) {}
+function createWeek(options: WeekOptions) {
+  // Nothing here yet
+}
 
 // Create the calendar days in interval from start to end.
 function createDays(start: Date, end: Date): DayEntity[] {
