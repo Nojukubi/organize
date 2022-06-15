@@ -1,19 +1,8 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
-    "strict": true,
     "sourceMap": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "lib": ["ESNext", "DOM", "ScriptHost"],
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@organize/typescript/global.d.ts",
-      "./node_modules/@organize/typescript/node_modules/@types"
-    ]
+    "lib": ["ESNext", "DOM", "ScriptHost"]
   }
 }
