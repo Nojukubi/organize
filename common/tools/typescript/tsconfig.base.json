@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "moduleResolution": "node",
+    "target": "esnext",
     "strict": true,
     "skipLibCheck": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "types": ["./node_modules/@internal/typescript"],
     "typeRoots": [
       "./node_modules/@types",
-      "./node_modules/@organize/typescript/global.d.ts",
-      "./node_modules/@organize/typescript/node_modules/@types"
+      "./node_modules/@internal/typescript/node_modules/@types"
     ]
   }
 }
