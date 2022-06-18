@@ -1,8 +1,5 @@
 import type { Plugin, TransformResult } from 'vite';
 
-// RegExp to determine SFC template.
-const fileRegExp: RegExp = /type=template/g;
-
 // RegExp to replace SFC template content.
 const tplRegExp: RegExp = /(?<=<template[^>]*>)(.|\n)*?(?=<\/template>)/gm;
 
@@ -13,7 +10,9 @@ function deIndent(code: string): string {
 
 // Helper to remove the lead indent from vue template.
 function deIndentTpl(code: string): string {
-  return code.replace(tplRegExp, deIndent(code.match(tplRegExp)[0]));
+  // Determine whether code is exist in template.
+  const tplCode: string | undefined = code.match(tplRegExp)?.[0];
+  return tplCode ? code.replace(tplRegExp, deIndent(tplCode)) : code;
 }
 
 // Create the plugin output with transformed result.
