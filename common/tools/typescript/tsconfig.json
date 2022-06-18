@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "esnext",
     "sourceMap": true,
-    "lib": ["ESNext", "DOM", "ScriptHost"]
+    "lib": ["esnext", "dom", "ScriptHost"]
   }
 }

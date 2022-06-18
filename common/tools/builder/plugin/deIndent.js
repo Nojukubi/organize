@@ -1,20 +1,20 @@
 'use strict';
-exports.__esModule = true;
-// RegExp to determine SFC template.
-var fileRegExp = /type=template/g;
+Object.defineProperty(exports, '__esModule', { value: true });
 // RegExp to replace SFC template content.
-var tplRegExp = /(?<=<template[^>]*>)(.|\n)*?(?=<\/template>)/gm;
+const tplRegExp = /(?<=<template[^>]*>)(.|\n)*?(?=<\/template>)/gm;
 // Helper to remove the lead indent from code.
 function deIndent(code) {
-  return code === null || code === void 0 ? void 0 : code.replace(/^\s+/, '');
+  return code?.replace(/^\s+/, '');
 }
 // Helper to remove the lead indent from vue template.
 function deIndentTpl(code) {
-  return code.replace(tplRegExp, deIndent(code.match(tplRegExp)[0]));
+  // Determine whether code is exist in template.
+  const tplCode = code.match(tplRegExp)?.[0];
+  return tplCode ? code.replace(tplRegExp, deIndent(tplCode)) : code;
 }
 // Create the plugin output with transformed result.
 function createPluginOutput(code) {
-  return { code: code, map: null };
+  return { code, map: null };
 }
 // Plugin to remove the lead indent in SFC templates.
 function default_1() {
@@ -24,7 +24,7 @@ function default_1() {
     // Enforce order.
     enforce: 'pre',
     // Code transformation.
-    transform: function (code, path) {
+    transform(code, path) {
       return path.endsWith('.vue')
         ? createPluginOutput(deIndentTpl(code))
         : path.endsWith('type=template&lang.js')
@@ -33,4 +33,4 @@ function default_1() {
     }
   };
 }
-exports['default'] = default_1;
+exports.default = default_1;

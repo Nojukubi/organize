@@ -14,6 +14,8 @@ EsLintConfigs.env = {
 
 // Custom global variables.
 EsLintConfigs.globals = {
+  $ref: 'readonly',
+  $computed: 'readonly',
   defineProps: 'readonly',
   defineEmits: 'readonly',
   defineExpose: 'readonly',
@@ -53,8 +55,10 @@ const alias: AliasOptions = [
 export default <UserConfig>{
   resolve: { alias },
   plugins: [
-    pluginVue(),
     pluginDeIndent(),
+    pluginVue({
+      reactivityTransform: true
+    }),
     pluginEslint({
       baseConfig: EsLintConfigs
     })
