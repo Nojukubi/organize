@@ -2,6 +2,14 @@
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/command-line.schema.json",
   "commands": [
     {
+      "name": "build",
+      "commandKind": "bulk",
+      "summary": "Invokes building for packages",
+      "enableParallelism": true,
+      "ignoreMissingScript": true,
+      "allowWarningsInSuccessfulBuild": true
+    },
+    {
       "name": "test",
       "commandKind": "bulk",
       "summary": "Invokes testing for packages",

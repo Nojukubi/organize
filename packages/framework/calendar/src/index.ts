@@ -1,1 +1,1 @@
-export { default as wCalendar } from './wCalendar.vue';
+export { default as wCalendar } from './WCalendar.vue';
