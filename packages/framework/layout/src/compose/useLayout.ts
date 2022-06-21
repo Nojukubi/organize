@@ -1,5 +1,5 @@
 import { inject, UnwrapRef } from 'vue';
-import { LayoutConfig } from '../WLayoutConfig';
+import type { LayoutConfig } from '../WLayoutConfig';
 
 // Composable to handle the layout with helpers.
 export function useLayout() {

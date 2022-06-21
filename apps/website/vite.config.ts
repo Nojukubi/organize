@@ -4,7 +4,7 @@ import { VitePWA as pluginPWA } from 'vite-plugin-pwa';
 import manifest from './pwa/manifest.json';
 
 // Register the pwa plugin.
-buildConfig.plugins.push([
+buildConfig.plugins?.push([
   pluginPWA({
     srcDir: './pwa',
     strategies: 'injectManifest',

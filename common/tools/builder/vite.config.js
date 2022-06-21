@@ -18,6 +18,7 @@ EsLintConfigs.env = {
 EsLintConfigs.globals = {
   $ref: 'readonly',
   $computed: 'readonly',
+  $shallowRef: 'readonly',
   defineProps: 'readonly',
   defineEmits: 'readonly',
   defineExpose: 'readonly',

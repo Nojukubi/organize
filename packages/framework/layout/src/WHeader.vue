@@ -17,6 +17,8 @@
 
 <style lang="sass" scoped>
   .w-header
+    height: var(--header-height, 40px)
+
     @for $col-start from 1 through 2
       @for $col-end from 3 through 4
         &.area-#{$col-start}-#{$col-end}
