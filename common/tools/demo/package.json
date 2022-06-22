@@ -1,0 +1,35 @@
+{
+  "name": "@internal/demo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@internal/typescript": "0.0.0",
+    "@mdx-js/react": "^2.1.2",
+    "@storybook/addons": "^6.5.9",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-backgrounds": "^6.5.9",
+    "@storybook/addon-docs": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/addon-measure": "^6.5.9",
+    "@storybook/addon-outline": "^6.5.9",
+    "@storybook/channel-postmessage": "^6.5.9",
+    "@storybook/channel-websocket": "^6.5.9",
+    "@storybook/client-api": "^6.5.9",
+    "@storybook/builder-vite": "^0.1.36",
+    "@storybook/preview-web": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
+    "@storybook/vue3": "^6.5.9",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "babel-loader": "^8.2.5",
+    "react": "^18.2.0",
+    "vue": "^3.2.37",
+    "vite": "^2.9.12"
+  }
+}
