@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "dev": "tool dev",
+    "build": "tool build",
+    "preview": "tool preview"
   },
   "dependencies": {
     "@capacitor/core": "^3.5.1",
@@ -16,13 +16,13 @@
   "devDependencies": {
     "@capacitor/cli": "^3.5.1",
     "@internal/builder": "0.0.0",
+    "@internal/scripts": "0.0.0",
     "@internal/typescript": "0.0.0",
     "@stylize/sass-func": "^1.0.4",
     "@stylize/sass-mixin": "^1.1.0",
-    "sass": "^1.52.2",
+    "sass": "^1.52.3",
     "pug": "^3.0.2",
-    "typescript": "^4.7.3",
-    "vite": "^2.9.12",
-    "vue-tsc": "^0.37.9"
+    "typescript": "^4.7.4",
+    "vite": "^2.9.12"
   }
 }

@@ -2,19 +2,20 @@
   w-layout.application(
     view="lhr lcr lfr",
     data-application)
-    w-header
+    w-header.application__header
       | Header
-    w-drawer
-      | Drawer
-    w-content
-      wCalendar
+    app-drawer
+    w-content.application__content
+      router-view
     w-footer
       | Footer
 </template>
 
 <script lang="ts" setup>
-  import { WLayout, WDrawer, WHeader, WFooter, WContent } from '@framework/layout';
-  import { wCalendar } from '@framework/calendar';
+  // prettier-ignore
+  import { WLayout, WHeader, WFooter,
+    WContent } from '@framework/layout';
+  import AppDrawer from './AppDrawer.vue';
 </script>
 
 <style lang="sass">
@@ -28,4 +29,7 @@
   .application
     min-height: 100vh
     font-family: Roboto, sans-serif
+
+    &__calendar
+      margin: 16px auto
 </style>

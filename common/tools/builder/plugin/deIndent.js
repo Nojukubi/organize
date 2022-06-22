@@ -1,16 +1,22 @@
 'use strict';
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, '__esModule', { value: true });
+const de_indent_1 = __importDefault(require('de-indent'));
 // RegExp to replace SFC template content.
 const tplRegExp = /(?<=<template[^>]*>)(.|\n)*?(?=<\/template>)/gm;
 // Helper to remove the lead indent from code.
-function deIndent(code) {
-  return code?.replace(/^\s+/, '');
+function deIndentCode(code) {
+  return (0, de_indent_1.default)(code)?.replace(/^\s+/, '');
 }
 // Helper to remove the lead indent from vue template.
 function deIndentTpl(code) {
   // Determine whether code is exist in template.
   const tplCode = code.match(tplRegExp)?.[0];
-  return tplCode ? code.replace(tplRegExp, deIndent(tplCode)) : code;
+  return tplCode ? code.replace(tplRegExp, deIndentCode(tplCode)) : code;
 }
 // Create the plugin output with transformed result.
 function createPluginOutput(code) {
@@ -28,7 +34,7 @@ function default_1() {
       return path.endsWith('.vue')
         ? createPluginOutput(deIndentTpl(code))
         : path.endsWith('type=template&lang.js')
-        ? createPluginOutput(deIndent(code))
+        ? createPluginOutput(deIndentCode(code))
         : createPluginOutput(code);
     }
   };

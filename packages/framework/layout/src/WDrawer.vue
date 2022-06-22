@@ -8,18 +8,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
   import { useLayout } from './compose';
-  import type { ComputedRef, CSSProperties } from 'vue';
+  import type { CSSProperties } from 'vue';
 
   // Defines the props.
   const props = withDefaults(
     defineProps<{
-      modelValue: boolean;
-      tag: string;
-      side: 'left' | 'right';
-      width: number;
-      widthUnit: 'px' | 'em' | 'rem';
+      modelValue?: boolean;
+      tag?: string;
+      side?: 'left' | 'right';
+      width?: number;
+      widthUnit?: 'px' | 'em' | 'rem';
     }>(),
     {
       modelValue: true,
@@ -33,17 +32,17 @@
   // Composable to handle the Layout.
   const { layout, getBlockAreaClass } = useLayout();
 
-  // Create the class names based on the defined props.
-  const classCss: ComputedRef<any[]> = computed((): any[] => {
-    return [`w-drawer--${props.side}`, getBlockAreaClass(props.side), { 'w-drawer--open': props.modelValue }];
-  });
-
   // Create the css styles based on the defined props.
-  const styleCss: ComputedRef<CSSProperties> = computed((): CSSProperties => {
-    return {
+  const styleCss: CSSProperties = $computed(
+    (): CSSProperties => ({
       width: `${props.width}${props.widthUnit}`,
       [`margin-${props.side}`]: props.modelValue ? 0 : `-${props.width}${props.widthUnit}`
-    };
+    })
+  );
+
+  // Create the class names based on the defined props.
+  const classCss: (string | object)[] = $computed((): (string | object)[] => {
+    return [`w-drawer--${props.side}`, getBlockAreaClass(props.side), { 'w-drawer--open': props.modelValue }];
   });
 </script>
 

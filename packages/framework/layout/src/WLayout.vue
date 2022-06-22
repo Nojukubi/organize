@@ -4,8 +4,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, provide, shallowReactive } from 'vue';
-  import type { PropType, ComputedRef } from 'vue';
+  // prettier-ignore
+  import { computed, provide,
+    shallowReactive } from 'vue';
+  import type { PropType } from 'vue';
   import type { LayoutConfig } from './WLayoutConfig';
 
   // Defines the props.
@@ -21,7 +23,7 @@
       // Need to validate as it's critical for layout.
       validator: (v: string): boolean =>
         // Validate the view prop based on defined format.
-        /^([hl])h([hl]) lcr ([fr])f([fr])$/.test(v.toLowerCase() ?? '')
+        /^([hl])h([hr]) lcr ([fl])f([fr])$/.test(v.toLowerCase() ?? '')
     }
   });
 
@@ -35,12 +37,12 @@
   provide('$layout', layout);
 
   // Create the class name based on the defined theme.
-  const cssClass: ComputedRef<string> = computed((): string => {
+  const cssClass: string = $computed((): string => {
     return `w-layout--${props.theme}`;
   });
 
   // Create the 2d grid based on the defined prop view.
-  const grid: ComputedRef<string[][]> = computed(
+  const grid: string[][] = $computed(
     // prettier-ignore
     (): string[][] => props.view.match(/(\w)+/g)
       ?.map((row: string): string[] => row.split('')) ?? []
@@ -48,18 +50,18 @@
 
   // Calculated CSS grid position of the header.
   layout.blocks.header = computed((): number[] => {
-    return getAreaPosition('h', grid.value[0]);
+    return getAreaPosition('h', grid[0]);
   });
 
   // Calculated CSS grid position of the footer.
   layout.blocks.footer = computed((): number[] => {
-    return getAreaPosition('f', grid.value[2]);
+    return getAreaPosition('f', grid[2]);
   });
 
   // Calculated CSS grid position of the drawer left.
   layout.blocks.left = computed((): number[] => {
     // prettier-ignore
-    const blocks: string[] = grid.value.reduce((output: string[],
+    const blocks: string[] = grid.reduce((output: string[],
       [block]: string[]): string[] => [...output, block], []);
     return getAreaPosition('l', blocks);
   });
@@ -67,7 +69,7 @@
   // Calculated CSS grid position of the drawer right.
   layout.blocks.right = computed((): number[] => {
     // prettier-ignore
-    const blocks: string[] = grid.value.reduce((output: string[],
+    const blocks: string[] = grid.reduce((output: string[],
       [,,block]: string[]): string[] => [...output, block], []);
     return getAreaPosition('r', blocks);
   });
