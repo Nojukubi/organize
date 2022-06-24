@@ -27,6 +27,11 @@
       "projectFolder": "packages/framework/layout"
     },
     {
+      "packageName": "@internal/demo",
+      "projectFolder": "common/tools/demo",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@internal/scripts",
       "projectFolder": "common/tools/scripts",
       "shouldPublish": false
