@@ -1,10 +1,11 @@
 {
-  "name": "@framework/calendar",
+  "name": "@internal/framework",
   "version": "0.0.0",
   "private": true,
-  "main": "src/index.ts",
-  "module": "src/index.ts",
+  "main": "index.ts",
+  "module": "index.ts",
   "dependencies": {
+    "@mdi/js": "^6.7.96",
     "date-fns": "^2.28.0",
     "vue": "^3.2.37"
   },

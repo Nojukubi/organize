@@ -10,7 +10,7 @@
   "dependencies": {
     "@capacitor/core": "^3.5.1",
     "@capacitor/ios": "^3.5.1",
-    "@framework/layout": "0.0.0",
+    "@internal/framework": "0.0.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {

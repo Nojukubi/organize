@@ -15,16 +15,8 @@
       "projectFolder": "apps/mobile"
     },
     {
-      "packageName": "@framework/base",
-      "projectFolder": "packages/framework/base"
-    },
-    {
-      "packageName": "@framework/calendar",
-      "projectFolder": "packages/framework/calendar"
-    },
-    {
-      "packageName": "@framework/layout",
-      "projectFolder": "packages/framework/layout"
+      "packageName": "@internal/framework",
+      "projectFolder": "packages/framework"
     },
     {
       "packageName": "@internal/demo",

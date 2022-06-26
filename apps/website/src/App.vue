@@ -14,7 +14,7 @@
 <script lang="ts" setup>
   // prettier-ignore
   import { WLayout, WHeader, WFooter,
-    WContent } from '@framework/layout';
+    WContent } from '@internal/framework';
   import AppDrawer from './AppDrawer.vue';
 </script>
 

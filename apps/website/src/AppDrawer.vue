@@ -35,10 +35,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { WDrawer } from '@framework/layout';
-  import { WCalendar } from '@framework/calendar';
   // prettier-ignore
-  import { WIcon, WList, WListItem } from '@framework/base';
+  import { WDrawer, WCalendar, WIcon, WList,
+    WListItem } from '@internal/framework';
 </script>
 
 <style lang="sass">
