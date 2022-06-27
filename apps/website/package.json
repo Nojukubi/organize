@@ -8,9 +8,7 @@
     "preview": "tool preview"
   },
   "dependencies": {
-    "@framework/base": "0.0.0",
-    "@framework/layout": "0.0.0",
-    "@framework/calendar": "0.0.0",
+    "@internal/framework": "0.0.0",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16",
     "workbox-routing": "^6.5.3",
