@@ -5,6 +5,7 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, '__esModule', { value: true });
+exports.transform = void 0;
 const de_indent_1 = __importDefault(require('de-indent'));
 // RegExp to replace SFC template content.
 const tplRegExp = /(?<=<template[^>]*>)(.|\n)*?(?=<\/template>)/gm;
@@ -22,21 +23,17 @@ function deIndentTpl(code) {
 function createPluginOutput(code) {
   return { code, map: null };
 }
-// Plugin to remove the lead indent in SFC templates.
-function default_1() {
-  return {
-    // Plugin name.
-    name: 'de-indent',
-    // Enforce order.
-    enforce: 'pre',
-    // Code transformation.
-    transform(code, path) {
-      return path.endsWith('.vue')
-        ? createPluginOutput(deIndentTpl(code))
-        : path.endsWith('type=template&lang.js')
-        ? createPluginOutput(deIndentCode(code))
-        : createPluginOutput(code);
-    }
-  };
+// Transform the SCF code to fix the pug templates.
+function transform(code, path) {
+  return path.endsWith('.vue')
+    ? createPluginOutput(deIndentTpl(code))
+    : path.endsWith('type=template&lang.js')
+    ? createPluginOutput(deIndentCode(code))
+    : createPluginOutput(code);
 }
-exports.default = default_1;
+exports.transform = transform;
+// Plugin to remove the lead indent in SFC templates.
+function plugin() {
+  return { name: 'de-indent', enforce: 'pre', transform };
+}
+exports.default = plugin;
