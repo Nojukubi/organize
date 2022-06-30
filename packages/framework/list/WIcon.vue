@@ -12,6 +12,13 @@
 
   // Defines the props.
   const props = defineProps<{
-    icon: string;
+    name: string;
   }>();
 </script>
+
+<style lang="sass" scoped>
+  .w-icon
+    display: block
+    width: var(--icon-width, 24px)
+    height: var(--icon-height, 24px)
+</style>

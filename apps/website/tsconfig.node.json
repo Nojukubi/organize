@@ -1,4 +1,7 @@
 {
   "extends": "@internal/typescript/tsconfig.node.json",
-  "include": ["vite.config.ts", "./pwa/manifest.json"]
+  "include": ["vite.config.ts", "./pwa/manifest.json"],
+  "compilerOptions": {
+    "composite": true
+  }
 }

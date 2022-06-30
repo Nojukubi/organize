@@ -1,0 +1,14 @@
+{
+  "name": "@internal/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "module": "index.ts",
+  "dependencies": {
+    "@storybook/vue3": "^6.5.9",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@internal/typescript": "0.0.0"
+  }
+}

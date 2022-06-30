@@ -15,7 +15,7 @@
       "projectFolder": "apps/mobile"
     },
     {
-      "packageName": "@internal/framework",
+      "packageName": "@organize/framework",
       "projectFolder": "packages/framework"
     },
     {
@@ -31,6 +31,11 @@
     {
       "packageName": "@internal/builder",
       "projectFolder": "common/tools/builder",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@internal/storybook",
+      "projectFolder": "common/tools/storybook",
       "shouldPublish": false
     },
     {

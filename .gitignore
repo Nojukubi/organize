@@ -4,7 +4,6 @@
 
 # Rush
 .rush
-*tsbuild*
 common/temp
 node_modules
 

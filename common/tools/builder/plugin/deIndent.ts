@@ -21,20 +21,16 @@ function createPluginOutput(code: string): TransformResult {
   return { code, map: null };
 }
 
+// Transform the SCF code to fix the pug templates.
+export function transform(code: string, path: string): TransformResult {
+  return path.endsWith('.vue')
+    ? createPluginOutput(deIndentTpl(code))
+    : path.endsWith('type=template&lang.js')
+    ? createPluginOutput(deIndentCode(code))
+    : createPluginOutput(code);
+}
+
 // Plugin to remove the lead indent in SFC templates.
-export default function (): Plugin {
-  return {
-    // Plugin name.
-    name: 'de-indent',
-    // Enforce order.
-    enforce: 'pre',
-    // Code transformation.
-    transform(code: string, path: string): TransformResult {
-      return path.endsWith('.vue')
-        ? createPluginOutput(deIndentTpl(code))
-        : path.endsWith('type=template&lang.js')
-        ? createPluginOutput(deIndentCode(code))
-        : createPluginOutput(code);
-    }
-  };
+export default function plugin(): Plugin {
+  return { name: 'de-indent', enforce: 'pre', transform };
 }
