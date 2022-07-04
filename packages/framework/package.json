@@ -2,10 +2,11 @@
   "name": "@organize/framework",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
-  "module": "index.ts",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "dependencies": {
     "@mdi/js": "^6.7.96",
+    "@stylize/sass-func": "^1.0.4",
     "@stylize/sass-mixin": "^1.1.0",
     "date-fns": "^2.28.0",
     "vue": "^3.2.37",

@@ -1,40 +1,99 @@
 export * from '@storybook/vue3';
-import { Component, defineComponent } from 'vue';
-import type { StoryFn, Args } from '@storybook/vue3';
+import { defineComponent } from 'vue';
+// prettier-ignore
+import type { Args, Meta,
+  VueFramework } from '@storybook/vue3';
 
 /**
- * Custom configs used to define the component.
+ * Configs used to define the case.
  * @property content Component content.
  */
-interface StoryConfig {
+export interface CaseConfig {
   content?: number | string;
 }
 
 /**
- * Create story and define component based on the configs.
- * @param target Vue component rendered by the story.
- * @param configs Custom configs used to define the component.
- * @returns Storybook story with defined component and configs.
+ * Describes the story functionality.
  */
-export function createStory(target: Component, configs?: StoryConfig): StoryFn {
-  return createProxyComponent(target, configs);
+export interface Story extends Meta {
+  /**
+   * Create the case for defined story.
+   * @param configs Case configs.
+   * @returns Created case.
+   */
+  createCase(configs?: CaseConfig): Case;
+
+  /**
+   * Set a boolean argument for story.
+   * @param name Arg name.
+   * @param val Initial value.
+   * @param doc Documentation.
+   * @returns Current story.
+   */
+  setBooleanArg(name: string, val: boolean, doc: string): Story;
 }
 
 /**
- * Create the component which will proxy the storybook data.
- * @param target Vue component rendered by the story.
- * @param configs Custom configs used to define the component.
- * @returns Vue Proxy wrapped around target with reactive props.
+ * Describes the case functionality.
  */
-function createProxyComponent<T>(target: T, configs?: StoryConfig): StoryFn {
-  // High order component which wraps target and get story context.
-  return function Proxy(args: Args) {
-    return defineComponent({
+export interface Case extends Meta {
+  /**
+   * Disable the arg for defined case.
+   * @param name Arg name.
+   */
+  disableArg(name: string): Case;
+}
+
+/**
+ * Create story for the target component.
+ * @param title Story title and path.
+ * @param component Target component.
+ * @returns Story with specified component.
+ */
+export function createStory(title: string, component: VueFramework['component']): Story {
+  // prettier-ignore
+  return { title, component, args: {}, argTypes: {}, setBooleanArg,
+    createCase: createCase.bind({}, component) };
+}
+
+/**
+ * Create case for the target component.
+ * @param component Target component.
+ * @param configs Custom configs.
+ * @returns Case with specified component.
+ */
+export function createCase(component: VueFramework['component'], configs?: CaseConfig): Case {
+  const Proxy: Case = ((args: Args): VueFramework['component'] =>
+    defineComponent({
+      setup: () => ({ target: component, args }),
       template: `
         <component :is="target" v-bind="args">
           ${configs?.content}
-        </component>`,
-      setup: () => ({ target, args })
-    });
-  };
+        </component>`
+    })) as unknown as Case;
+
+  Proxy.args = {};
+  Proxy.argTypes = {};
+  Proxy.disableArg = disableArg.bind(Proxy);
+  return Proxy;
+}
+
+/**
+ * Define the argument as boolean.
+ * @param name Arg name.
+ * @param val Initial value.
+ * @param doc Documentation.
+ */
+function setBooleanArg<T extends Meta>(this: T, name: string, val: boolean, doc: string): T {
+  Object.assign(this.args ?? {}, { [name]: val });
+  return this;
+}
+
+/**
+ * Disable the argument as control.
+ * @param name Arg name.
+ */
+function disableArg<T extends Case>(this: T, name: string): T {
+  this.argTypes = { ...this.argTypes, [name]: { table: { disable: false } } };
+  return this;
 }

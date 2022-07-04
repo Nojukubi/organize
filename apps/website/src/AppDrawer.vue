@@ -36,8 +36,8 @@
 
 <script lang="ts" setup>
   // prettier-ignore
-  import { WDrawer, WCalendar, WIcon, WList,
-    WListItem } from '@organize/framework';
+  import { WDrawer, WCalendar, WIcon, WList, WListItem, WBadge,
+    WListItemSection, WListItemText } from '@organize/framework';
 </script>
 
 <style lang="sass">
