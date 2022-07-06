@@ -3,6 +3,7 @@
     v-if="!$slots.target",
     :class="classCss")
     slot(name="default")
+
   .w-badge-target(v-else)
     slot(name="target")
     .w-badge(:class="classCss")
@@ -16,56 +17,56 @@
   // Defines the props.
   const props = defineProps<{
     top?: boolean;
-    left?: boolean;
     right?: boolean;
     bottom?: boolean;
-    label?: string;
-    inline?: boolean;
+    left?: boolean;
     rounded?: boolean;
+    floating?: boolean;
   }>();
 
   // Composable to handle the Slots.
   const slots: SetupContext['slots'] = useSlots();
 
-  // Determine whether badge is inline.
-  const isInline: boolean = $computed((): boolean => {
-    return props.inline ? true : !slots.target;
+  // Determine whether badge is floating.
+  const isFloating: boolean = $computed((): boolean => {
+    return props.floating || !!slots.target;
   });
 
   // Create the class names based on the props.
   const classCss: object = $computed((): object => ({
-    'w-badge--inline': isInline,
+    'w-badge--floating': isFloating,
     'w-badge--rounded': props.rounded,
-    'w-badge--v-top': isInline && props.top,
-    'w-badge--v-bottom': isInline && props.bottom,
-    'w-badge--left': !isInline && props.left,
-    'w-badge--bottom': !isInline && props.bottom,
-    'w-badge--top': !isInline && (props.top || !props.bottom),
-    'w-badge--right': !isInline && (props.right || !props.left)
+    'w-badge--v-top': !isFloating && props.top,
+    'w-badge--v-bottom': !isFloating && props.bottom,
+    'w-badge--left': isFloating && props.left,
+    'w-badge--bottom': isFloating && props.bottom,
+    'w-badge--top': isFloating && (props.top || !props.bottom),
+    'w-badge--right': isFloating && (props.right || !props.left)
   }));
 </script>
 
 <style lang="sass" scoped>
   @use '@stylize/sass-mixin' as *
+  @use '@stylize/sass-func/unit' as *
 
   .w-badge
-    +absolute($z: 1)
-    display: inline-flex
-    padding: 3px 6px
-    border-radius: 4px
     color: var(--badge-color, white)
-    font-size: var(--badge-font, 12px)
     background: var(--badge-bg, #1976d2)
+    font-size: var(--badge-font, rem(12px))
+    padding: rem(2px) rem(6px)
+    min-width: rem(4px)
+    border-radius: 4px
+    +inline-flex-row-center
 
     &-target
       +relative
       display: inline-block
 
-    &--inline
-      position: relative
+    &--floating
+      +absolute($z: 1)
 
     &--rounded
-      border-radius: 14px
+      border-radius: 1.25em
 
     &--top
       top: -50%

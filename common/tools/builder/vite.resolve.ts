@@ -6,5 +6,5 @@ export const alias: Alias[] = [
   { find: /^~(.+)/, replacement: '$1' }
 ];
 
-// Create the vite resolve options.
-export const resolve: { alias: Alias[] } = { alias };
+// Create the resolve options.
+export const resolve = { alias };

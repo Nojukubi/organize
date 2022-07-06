@@ -6,5 +6,5 @@ exports.alias = [
   // Alias for sass node_modules.
   { find: /^~(.+)/, replacement: '$1' }
 ];
-// Create the vite resolve options.
+// Create the resolve options.
 exports.resolve = { alias: exports.alias };

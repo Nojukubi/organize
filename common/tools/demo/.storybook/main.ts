@@ -9,7 +9,12 @@ const core: CoreConfig = {
 };
 
 // Addons and presets to include.
-const addons: Preset[] = ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-interactions'];
+const addons: Preset[] = [
+  '@storybook/addon-links',
+  '@storybook/addon-essentials',
+  '@storybook/addon-interactions',
+  '@storybook/addon-a11y'
+];
 
 // Find by pattern inside of framework.
 const stories: string[] = [
