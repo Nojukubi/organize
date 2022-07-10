@@ -21,4 +21,7 @@
     display: block
     width: var(--icon-width, 24px)
     height: var(--icon-height, 24px)
+
+    path
+      fill: currentColor
 </style>

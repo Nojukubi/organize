@@ -1,4 +1,4 @@
 <template lang="pug">
-  .home-view
-    | HOME
+  .goal-view
+    | Goal
 </template>

@@ -51,8 +51,8 @@
 
   .w-badge
     color: var(--badge-color, white)
-    background: var(--badge-bg, #1976d2)
     font-size: var(--badge-font, rem(12px))
+    background: var(--badge-bg, #1976d2)
     padding: rem(2px) rem(6px)
     min-width: rem(4px)
     border-radius: 4px

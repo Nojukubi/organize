@@ -50,8 +50,10 @@
   @use '~@stylize/sass-mixin' as *
 
   .w-drawer
+    will-change: margin
     transition: margin 1s
-    background: var(--drawer-background, lightgrey)
+    transform: translateZ(0)
+    background: var(--drawer-background, white)
 
     @for $row-start from 1 through 2
       @for $row-end from 3 through 4

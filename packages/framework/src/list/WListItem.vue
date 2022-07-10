@@ -1,27 +1,17 @@
 <template lang="pug">
-  a.w-list-item(
-    v-if="href",
-    :class="classCss",
-    :href="href",
-    :target="target")
-    slot
-
-  router-link.w-list-item(
-    v-else-if="to",
-    :to="to",
-    :class="classCss",
-    active-class="w-list-item--active",
-    exact-active-class="w-list-item--exact-active")
-    slot
-
   component.w-list-item(
-    v-else,
-    :is="tag",
-    :class="classCss")
-    slot
+    :is="tagRoot",
+    :class="classCss",
+    :style="styleCss",
+    :target="target",
+    v-bind="dynamicProps")
+    .w-list-item__content
+      slot
 </template>
 
 <script lang="ts" setup>
+  import { resolveComponent } from 'vue';
+  import type { CSSProperties } from 'vue';
   import type { RouteLocationRaw } from 'vue-router';
 
   // Defines the props.
@@ -29,10 +19,11 @@
     defineProps<{
       tag?: string;
       href?: string;
-      to?: string | RouteLocationRaw;
+      to?: RouteLocationRaw;
       target?: string;
-      inactive?: boolean;
-      clickable?: boolean;
+      rounded?: number | boolean;
+      disabled?: boolean;
+      interactive?: boolean;
     }>(),
     {
       tag: 'div'
@@ -43,32 +34,89 @@
     return !!props.to || !!props.href;
   });
 
-  const isClickable: boolean = $computed((): boolean => {
-    return !props.inactive && (props.clickable || isLink);
+  const tagRoot: any = $computed(() => {
+    return props.href ? 'a' : props.to ? resolveComponent('RouterLink') : props.tag;
+  });
+
+  const dynamicProps: any = $computed(() => {
+    return props.to
+      ? { 'to': props.to, 'active-class': 'w-list-item--active', 'exact-active-class': 'w-list-item--exact-active' }
+      : {};
+  });
+
+  const isInteractive: boolean = $computed((): boolean => {
+    return !props.disabled && (props.interactive || isLink);
   });
 
   const classCss: object = $computed((): object => ({
-    'w-list-item--clickable': isClickable
+    'w-list-item--rounded': props.rounded,
+    'w-list-item--disabled': props.disabled,
+    'w-list-item--interactive': isInteractive
   }));
+
+  const styleCss: CSSProperties = $computed((): CSSProperties => {
+    const styleProps: CSSProperties = {};
+
+    if (typeof props.rounded === 'number')
+      // Assign the border radius with units.
+      styleProps.borderRadius = `${props.rounded}px`;
+
+    return styleProps;
+  });
 </script>
 
 <style lang="sass" scoped>
   @use '~@stylize/sass-mixin' as *
 
   .w-list-item
-    color: inherit
+    $root: &
+    outline: none
+    color: var(--list-item-color, black)
     padding: 8px 16px
     position: relative
     min-height: 32px
     text-decoration: none
-    transition: color .3s, background-color .3s
-    +flex-row(flex-start center nowrap)
+    transition: color .3s
+    +flex-row
 
-    &--active
-      background: grey
+    +before
+      +absolute-cover
+      transition: background-color .3s
+      background: var(--list-item-bg, transparent)
 
-    &--clickable
+    &__content
+      flex: 1 0 0
+      position: relative
+      +flex-row(flex-start center nowrap)
+
+    &--rounded
+      &, &:before
+        border-radius: 6px
+
+    &--interactive
       +support-hover
         &:hover
-          background: darkgray
+          color: var(--list-item-hover-color, var(--list-item-color, inherit))
+
+          &:before
+            background: var(--list-item-hover-bg, darkgrey)
+
+    &--active
+      color: var(--list-item-active-color, white)
+
+      &:before
+        background: var(--list-item-active-bg, black)
+
+      +support-hover
+        &:hover
+          color: var(--list-item-active-color, white)
+
+          &:before
+            background: var(--list-item-active-bg, black)
+
+    &--disabled
+      &:before
+        content: none
+        user-select: none
+        pointer-events: none
 </style>

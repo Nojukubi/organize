@@ -24,13 +24,13 @@ export interface Story extends Meta {
   createCase(configs?: CaseConfig): Case;
 
   /**
-   * Set a boolean argument for story.
-   * @param name Arg name.
-   * @param val Initial value.
+   * Set boolean argument type for story.
+   * @param name Argument name.
+   * @param value Initial value.
    * @param doc Documentation.
    * @returns Current story.
    */
-  setBooleanArg(name: string, val: boolean, doc: string): Story;
+  setBooleanArgType(name: string, value: boolean, doc: string): Story;
 }
 
 /**
@@ -38,8 +38,16 @@ export interface Story extends Meta {
  */
 export interface Case extends Meta {
   /**
-   * Disable the arg for defined case.
-   * @param name Arg name.
+   * Set argument value.
+   * @param name Argument name.
+   * @param value Argument value.
+   * @returns Current case.
+   */
+  setArg(name: string, value: boolean): Case;
+
+  /**
+   * Disable argument for case.
+   * @param name Argument name.
    */
   disableArg(name: string): Case;
 }
@@ -52,7 +60,7 @@ export interface Case extends Meta {
  */
 export function createStory(title: string, component: VueFramework['component']): Story {
   // prettier-ignore
-  return { title, component, args: {}, argTypes: {}, setBooleanArg,
+  return { title, component, args: {}, argTypes: {}, setBooleanArgType,
     createCase: createCase.bind({}, component) };
 }
 
@@ -74,26 +82,38 @@ export function createCase(component: VueFramework['component'], configs?: CaseC
 
   Proxy.args = {};
   Proxy.argTypes = {};
-  Proxy.disableArg = disableArg.bind(Proxy);
+  Proxy.setArg = <any>setArg.bind(Proxy);
+  Proxy.disableArg = <any>disableArg.bind(Proxy);
   return Proxy;
 }
 
 /**
- * Define the argument as boolean.
- * @param name Arg name.
- * @param val Initial value.
+ * Define the argument type as boolean.
+ * @param name Argument name.
+ * @param value Init value.
  * @param doc Documentation.
  */
-function setBooleanArg<T extends Meta>(this: T, name: string, val: boolean, doc: string): T {
-  Object.assign(this.args ?? {}, { [name]: val });
+function setBooleanArgType<T extends Meta>(this: T, name: string, value: boolean, doc: string): T {
+  setArg.call(this, name, value);
+  Object.assign(this.argTypes ?? {}, { [name]: { control: 'boolean', description: doc } });
+  return this;
+}
+
+/**
+ * Define the argument value.
+ * @param name Argument name.
+ * @param value Argument value.
+ */
+function setArg<T extends Meta>(this: T, name: string, value: boolean): T {
+  Object.assign(this.args ?? {}, { [name]: value });
   return this;
 }
 
 /**
  * Disable the argument as control.
- * @param name Arg name.
+ * @param name Argument name.
  */
-function disableArg<T extends Case>(this: T, name: string): T {
-  this.argTypes = { ...this.argTypes, [name]: { table: { disable: false } } };
+function disableArg<T extends Meta>(this: T, name: string): T {
+  this.argTypes = { ...this.argTypes, [name]: { table: { disable: true } } };
   return this;
 }

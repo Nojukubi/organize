@@ -5,17 +5,22 @@
     w-header.application__header
       | Header
     app-drawer
+    router-view(name="helper")
     w-content.application__content
-      router-view
+      router-view(name="default")
     w-footer
       | Footer
 </template>
 
 <script lang="ts" setup>
   // prettier-ignore
-  import { WLayout, WHeader, WFooter,
+  import { WLayout, WHeader, WFooter, WDrawer, WCalendar,
     WContent } from '@organize/framework';
   import AppDrawer from './AppDrawer.vue';
+  import { provide } from 'vue';
+  import { useLocations } from './plugins/router';
+
+  provide('routeLocations', useLocations().locations);
 </script>
 
 <style lang="sass">
