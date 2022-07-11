@@ -1,4 +1,4 @@
 <template lang="pug">
-  .goal-view
-    | GOAL
+  .habit-view
+    | Habit
 </template>

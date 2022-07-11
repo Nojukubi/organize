@@ -2,8 +2,8 @@
   "name": "@internal/typescript",
   "version": "0.0.0",
   "private": true,
-  "main": "./tsconfig.json",
-  "types": "./typings.d.ts",
+  "main": "tsconfig.json",
+  "types": "typings.d.ts",
   "dependencies": {
     "@types/node": "^17.0.45",
     "vite": "^2.9.13",

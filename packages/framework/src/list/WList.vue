@@ -6,7 +6,12 @@
 </template>
 
 <style lang="sass" scoped>
+  @use '~@stylize/sass-mixin' as *
+
   .w-list
+    gap: 4px
+    +flex-col
+
     &__header
       margin: 0 16px 8px
 </style>

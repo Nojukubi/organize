@@ -1,8 +1,9 @@
 <template lang="pug">
   w-drawer.app-drawer(:width="300")
-    w-calendar.app-drawer__calendar
-    w-list
-      w-list-item(:to="{ name: 'home' }")
+    w-list.app-drawer__nav
+      w-list-item(
+        :to="habitLocation()",
+        rounded)
         w-list-item-section(left)
           w-icon(name="CheckboxMarkedCirclePlusOutline")
         w-list-item-section
@@ -11,7 +12,9 @@
         w-list-item-section(right)
           w-badge
             | 1
-      w-list-item(:to="{ name: 'goal' }")
+      w-list-item(
+        :to="{ name: 'goal' }",
+        rounded)
         w-list-item-section(left)
           w-icon(name="CalendarCheckOutline")
         w-list-item-section
@@ -36,14 +39,28 @@
 
 <script lang="ts" setup>
   // prettier-ignore
-  import { WDrawer, WCalendar, WIcon, WList, WListItem, WBadge,
+  import { WDrawer, WIcon, WList, WListItem, WBadge,
     WListItemSection, WListItemText } from '@organize/framework';
+  import { inject } from 'vue';
+
+  const { habitLocation, goalLocation } = inject('routeLocations') ?? {};
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
   @use '@stylize/sass-mixin' as *
 
   .app-drawer
+    border-right: 1px solid #eee
+
+    &__nav
+      margin: 8px
+
+      --list-item-color: #8e9ab3
+      --list-item-hover-bg: #eaeef8
+      --list-item-hover-color: #212325
+      --list-item-active-bg: #f7f8fa
+      --list-item-active-color: #212325
+
     &__calendar
       margin: 16px auto
 </style>
