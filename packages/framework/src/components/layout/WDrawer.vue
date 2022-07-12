@@ -51,7 +51,7 @@
 
   .w-drawer
     will-change: margin
-    transition: margin 1s
+    transition: margin 0.5s
     transform: translateZ(0)
     background: var(--drawer-background, white)
 

@@ -52,6 +52,9 @@
   .app-drawer
     border-right: 1px solid #eee
 
+    +media('<=sm')
+      margin-left: -300px !important
+
     &__nav
       margin: 8px
 

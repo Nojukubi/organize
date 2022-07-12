@@ -3,18 +3,18 @@
     view="lhr lcr lfr",
     data-application)
     w-header.application__header
-      | Header
+      router-view(name="header")
     app-drawer
     router-view(name="helper")
     w-content.application__content
       router-view(name="default")
-    w-footer
-      | Footer
+    w-footer.application__footer
+      router-view(name="footer")
 </template>
 
 <script lang="ts" setup>
   // prettier-ignore
-  import { WLayout, WHeader, WFooter, WDrawer, WCalendar,
+  import { WLayout, WHeader, WFooter,
     WContent } from '@organize/framework';
   import AppDrawer from './AppDrawer.vue';
   import { provide } from 'vue';
@@ -37,4 +37,10 @@
 
     &__calendar
       margin: 16px auto
+
+    &__header
+      border-bottom: 1px solid #eee
+
+    &__footer
+      border-top: 1px solid #eee
 </style>
