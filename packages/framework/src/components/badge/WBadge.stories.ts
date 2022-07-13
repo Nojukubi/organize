@@ -10,13 +10,19 @@ const story: Story = createStory('Framework/Badge', WBadge)
   .setBooleanArgType('rounded', false, 'Rounded border radius')
   .setBooleanArgType('floating', false, 'Define with absolute position');
 
-// Story 1: Base state of Badge with plain content.
+// Story
+const Dot: Case = story
+  .createCase()
+  // Disable redundant arg.
+  .disableArg('floating');
+
+// Story
 const Default: Case = story
   .createCase({ content: 9 })
   // Disable redundant arg.
   .disableArg('floating');
 
-// Story 2: Badge which wraps the content with target.
+// Story
 const Target: Case = story.createCase({
   content: `
     <span>New</span>
@@ -28,4 +34,4 @@ const Target: Case = story.createCase({
 });
 
 export default story;
-export { Default, Target };
+export { Dot, Default, Target };

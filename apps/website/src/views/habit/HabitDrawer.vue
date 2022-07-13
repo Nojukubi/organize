@@ -1,6 +1,6 @@
 <template lang="pug">
   w-drawer.habit-drawer(
-    width="300",
+    width="400",
     side="right")
     w-calendar
 </template>
@@ -13,6 +13,8 @@
   @use '~@stylize/sass-mixin' as *
 
   .habit-drawer
+    border-left: 1px solid #eee
+
     +media('<=lg')
-      margin-right: -300px !important
+      margin-right: -400px !important
 </style>

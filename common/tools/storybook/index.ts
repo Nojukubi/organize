@@ -74,10 +74,11 @@ export function createCase(component: VueFramework['component'], configs?: CaseC
   const Proxy: Case = ((args: Args): VueFramework['component'] =>
     defineComponent({
       setup: () => ({ target: component, args }),
-      template: `
-        <component :is="target" v-bind="args">
-          ${configs?.content}
-        </component>`
+      template: configs?.content
+        ? `<component :is="target" v-bind="args">
+            ${configs?.content}
+          </component>`
+        : '<component :is="target" v-bind="args"/>'
     })) as unknown as Case;
 
   Proxy.args = {};
