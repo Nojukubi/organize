@@ -17,11 +17,23 @@ export interface CaseConfig {
  */
 export interface Story extends Meta {
   /**
-   * Create the case for defined story.
-   * @param configs Case configs.
-   * @returns Created case.
+   * Set select argument type for story.
+   * @param name Argument name.
+   * @param value Initial value.
+   * @param options Options.
+   * @param doc Documentation.
+   * @returns Current story.
    */
-  createCase(configs?: CaseConfig): Case;
+  setSelectArgType(name: string, value: any, options: any[], doc: string): Story;
+
+  /**
+   * Set string argument type for story.
+   * @param name Argument name.
+   * @param value Initial value.
+   * @param doc Documentation.
+   * @returns Current story.
+   */
+  setStringArgType(name: string, value: string | undefined, doc: string): Story;
 
   /**
    * Set boolean argument type for story.
@@ -30,7 +42,7 @@ export interface Story extends Meta {
    * @param doc Documentation.
    * @returns Current story.
    */
-  setBooleanArgType(name: string, value: boolean, doc: string): Story;
+  setBooleanArgType(name: string, value: boolean | undefined, doc: string): Story;
 }
 
 /**
@@ -59,9 +71,7 @@ export interface Case extends Meta {
  * @returns Story with specified component.
  */
 export function createStory(title: string, component: VueFramework['component']): Story {
-  // prettier-ignore
-  return { title, component, args: {}, argTypes: {}, setBooleanArgType,
-    createCase: createCase.bind({}, component) };
+  return { title, component, args: {}, argTypes: {}, setSelectArgType, setBooleanArgType, setStringArgType };
 }
 
 /**
@@ -71,9 +81,11 @@ export function createStory(title: string, component: VueFramework['component'])
  * @returns Case with specified component.
  */
 export function createCase(component: VueFramework['component'], configs?: CaseConfig): Case {
-  const Proxy: Case = ((args: Args): VueFramework['component'] =>
+  const Proxy: Case = ((args: Args, { argTypes }): VueFramework['component'] =>
     defineComponent({
-      setup: () => ({ target: component, args }),
+      // prettier-ignore
+      setup: () => ({ target: component, args:
+          { ...defaultArgs(argTypes), ...normalizeArgs(args) } }),
       template: configs?.content
         ? `<component :is="target" v-bind="args">
             ${configs?.content}
@@ -89,6 +101,19 @@ export function createCase(component: VueFramework['component'], configs?: CaseC
 }
 
 /**
+ * Define the argument type as select.
+ * @param name Argument name.
+ * @param value Init value.
+ * @param options Options.
+ * @param doc Documentation.
+ */
+function setSelectArgType<T extends Meta>(this: T, name: string, value: boolean, options: any[], doc: string): T {
+  setArg.call(this, name, value);
+  Object.assign(this.argTypes ?? {}, { [name]: { control: 'select', options, description: doc } });
+  return this;
+}
+
+/**
  * Define the argument type as boolean.
  * @param name Argument name.
  * @param value Init value.
@@ -101,11 +126,23 @@ function setBooleanArgType<T extends Meta>(this: T, name: string, value: boolean
 }
 
 /**
+ * Define the argument type as string.
+ * @param name Argument name.
+ * @param value Init value.
+ * @param doc Documentation.
+ */
+function setStringArgType<T extends Meta>(this: T, name: string, value: string, doc: string): T {
+  setArg.call(this, name, value);
+  Object.assign(this.argTypes ?? {}, { [name]: { control: 'text', description: doc } });
+  return this;
+}
+
+/**
  * Define the argument value.
  * @param name Argument name.
  * @param value Argument value.
  */
-function setArg<T extends Meta>(this: T, name: string, value: boolean): T {
+function setArg<T extends Meta>(this: T, name: string, value: any): T {
   Object.assign(this.args ?? {}, { [name]: value });
   return this;
 }
@@ -117,4 +154,27 @@ function setArg<T extends Meta>(this: T, name: string, value: boolean): T {
 function disableArg<T extends Meta>(this: T, name: string): T {
   this.argTypes = { ...this.argTypes, [name]: { table: { disable: true } } };
   return this;
+}
+
+/**
+ * Default the args based on the keys.
+ * @param args Arguments.
+ */
+function defaultArgs(args: Args): Args {
+  // prettier-ignore
+  return Object.fromEntries(Object.keys(args)
+    .map((key: string): string[] => [key]));
+}
+
+/**
+ * Normalize the argument received from URL.
+ * @param args Arguments.
+ */
+function normalizeArgs(args: Args): Args {
+  for (let key in args) {
+    if (args[key] === 'true') args[key] = true;
+    else if (args[key] === 'false') args[key] = false;
+  }
+
+  return args;
 }
