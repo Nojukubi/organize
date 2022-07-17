@@ -22,8 +22,7 @@ export const Default: Case = createCase(WBadge, {
   .disableArg('right')
   .disableArg('bottom')
   .disableArg('left')
-  .disableArg('floating')
-  .setArg('rounded', false);
+  .disableArg('floating');
 
 // Create individual story case.
 export const Target: Case = createCase(WBadge, {
@@ -42,4 +41,4 @@ export const Indicator: Case = createCase(WBadge, {
     <template #target>
       Target
     </template>`
-}).setArg('rounded', true);
+});
