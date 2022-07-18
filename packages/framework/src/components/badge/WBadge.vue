@@ -95,56 +95,31 @@
 <style lang="sass">
   @use '@stylize/sass-mixin' as *
   @use '@stylize/sass-func/unit' as *
-  @use '../../styles/variables' as *
-
-  $badge__font: $font-size
-  $badge__radius: $radius-xs
-  $badge__rounded: 10px
-  $badge__padding: $offset-sm $offset-md
-  $badge__padding--dot: $offset-sm
-  $badge__min-width: calc(1em + #{$offset-sm * 2})
-  $badge__min-height: rem(2px)
-
-  $badge-primary__bg: $primary-bg
-  $badge-primary__color: $primary-color
-
-  $badge-secondary__bg: $secondary-bg
-  $badge-secondary__color: $secondary-color
-
-  $badge-success__bg: $success-bg
-  $badge-success__color: $success-color
-
-  $badge-danger__bg: $danger-bg
-  $badge-danger__color: $danger-color
-
-  $badge-warning__bg: $warning-bg
-  $badge-warning__color: $warning-color
+  @use './WBadge' as *
 
   .w-badge
+    line-height: 1
     box-sizing: border-box
     white-space: nowrap
-    padding: $badge__padding
-    min-width: $badge__min-width
+    padding: var(--badge-padding, $badge__padding)
+    min-width: var(--badge-min-width, $badge__min-width)
+    font-size: var(--badge-font-size, $badge__font-size)
+    font-weight: var(--badge-font-weight, $badge__font-weight)
     border-radius: var(--badge-radius, $badge__radius)
-    +font(var(--badge-font, $badge__font) 1)
-    +inline-flex-row-center
 
-    &-target
+    &, &-target
       position: relative
-      +inline-flex-row($cross: center)
+      +inline-flex-row-center
+
+    &--rounded
+      border-radius: var(--badge-rounded-radius, $badge-rounded__radius)
 
     &--dot
-      width: 0
-      height: 0
       min-width: auto
-      border-radius: 0
-      padding: $badge__padding--dot
+      border-radius: 50%
 
     &--floating
       +absolute($z: 1)
-
-    &--rounded
-      border-radius: $badge__rounded
 
     &--h-left
       order: -1
@@ -185,17 +160,17 @@
 
     &--secondary
       color: var(--badge-secondary-color, var(--secondary-color, $badge-secondary__color))
-      background: var(--badge-secondary-bg, var(--secondary-color, $badge-secondary__bg))
+      background: var(--badge-secondary-bg, var(--secondary-bg, $badge-secondary__bg))
 
     &--success
       color: var(--badge-success-color, var(--success-color, $badge-success__color))
-      background: var(--badge-success-bg, var(--success-color, $badge-success__bg))
+      background: var(--badge-success-bg, var(--success-bg, $badge-success__bg))
 
     &--danger
       color: var(--badge-danger-color, var(--danger-color, $badge-danger__color))
-      background: var(--badge-danger-bg, var(--danger-color, $badge-danger__bg))
+      background: var(--badge-danger-bg, var(--danger-bg, $badge-danger__bg))
 
     &--warning
       color: var(--badge-warning-color, var(--warning-color, $badge-warning__color))
-      background: var(--badge-warning-bg, var(--warning-color, $badge-warning__bg))
+      background: var(--badge-warning-bg, var(--warning-bg, $badge-warning__bg))
 </style>
