@@ -1,22 +1,25 @@
-import { Case, createStory, createCase } from '@internal/storybook';
+// prettier-ignore
+import { Case, createCase,
+  createStory } from '@internal/storybook';
 import WBadge from './WBadge.vue';
 
 // prettier-ignore
 // Create the metadata for story.
-export default createStory('Framework/Badge', WBadge)
-  .setSelectArgType('variant', 'primary', ['primary', 'secondary',
-    'success', 'danger', 'warning'], 'Define the styling variant')
-  .setStringArgType('tag', 'div', 'Badge html tag')
-  .setBooleanArgType('top', undefined, 'Absolute align top')
-  .setBooleanArgType('right', undefined, 'Absolute align right')
-  .setBooleanArgType('left', undefined, 'Absolute align left')
-  .setBooleanArgType('bottom', undefined, 'Absolute align bottom')
-  .setBooleanArgType('rounded', undefined, 'Rounded border radius')
-  .setBooleanArgType('floating', undefined, 'Define with absolute position');
+export default createStory({ title: 'Framework/Badge', component: WBadge })
+  .setStringArgType('tag', { value: 'div', hint: 'Root html tag' })
+  .setSelectArgType('variant', { value: 'primary', options: ['primary',
+    'secondary', 'success', 'danger', 'warning'], hint: 'Styling variant' })
+  .setBooleanArgType('top', { hint: 'Absolute align top' })
+  .setBooleanArgType('right', { hint: 'Absolute align right' })
+  .setBooleanArgType('bottom', { hint: 'Absolute align bottom' })
+  .setBooleanArgType('left', { hint: 'Absolute align left' })
+  .setBooleanArgType('rounded', { hint: 'Rounded border radius' })
+  .setBooleanArgType('floating', { hint: 'Absolute or inline position' });
 
-// Create individual story case.
-export const Default: Case = createCase(WBadge, {
-  content: 9
+// Create an individual case.
+export const Default: Case = createCase({
+  component: WBadge,
+  content: '9'
 })
   .disableArg('top')
   .disableArg('right')
@@ -24,8 +27,9 @@ export const Default: Case = createCase(WBadge, {
   .disableArg('left')
   .disableArg('floating');
 
-// Create individual story case.
-export const Target: Case = createCase(WBadge, {
+// Create an individual case.
+export const Target: Case = createCase({
+  component: WBadge,
   content: `
     <span>New</span>
     <template #target>
@@ -33,12 +37,18 @@ export const Target: Case = createCase(WBadge, {
         Target
       </span>
     </template>`
-});
+})
+  .setArg('top', true)
+  .setArg('right', true);
 
-// Create individual story case.
-export const Indicator: Case = createCase(WBadge, {
+// Create an individual case.
+export const Indicator: Case = createCase({
+  component: WBadge,
   content: `
     <template #target>
       Target
     </template>`
-});
+})
+  .setArg('top', true)
+  .setArg('right', true)
+  .disableArg('rounded');
