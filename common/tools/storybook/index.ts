@@ -1,15 +1,56 @@
 export * from '@storybook/vue3';
 import { defineComponent } from 'vue';
-// prettier-ignore
-import type { Args, Meta,
-  VueFramework } from '@storybook/vue3';
+import type { Args, Meta, VueFramework } from '@storybook/vue3';
 
 /**
- * Configs used to define the case.
- * @property content Component content.
+ * Config used to define the Meta.
+ * @property component Component target.
+ * @property subcomponents Other components.
  */
-export interface CaseConfig {
-  content?: number | string;
+export interface BaseConfig {
+  component: VueFramework['component'];
+  subcomponents?: Record<string, VueFramework['component']>;
+}
+
+/**
+ * Config used to define the Story.
+ * @property title Title with path.
+ */
+export interface StoryConfig extends BaseConfig {
+  title: string;
+}
+
+/**
+ * Config used to define the Case.
+ * @property content Content.
+ * @property template Template.
+ */
+export interface CaseConfig extends BaseConfig {
+  content?: string;
+  template?: string;
+}
+
+/**
+ * Config used to define the Base Arg.
+ * @property value Argument value.
+ * @property hint Argument hint.
+ * @property if Visibility condition.
+ */
+export interface BaseArgConfig<T = any> {
+  value?: T;
+  hint?: string;
+  if?: {
+    arg: string;
+    truthy?: boolean;
+  };
+}
+
+/**
+ * Config used to define the Select Arg.
+ * @property options Argument options.
+ */
+interface SelectArgConfig extends BaseArgConfig<string> {
+  options: string[];
 }
 
 /**
@@ -19,30 +60,26 @@ export interface Story extends Meta {
   /**
    * Set select argument type for story.
    * @param name Argument name.
-   * @param value Initial value.
-   * @param options Options.
-   * @param doc Documentation.
+   * @param config Argument config.
    * @returns Current story.
    */
-  setSelectArgType(name: string, value: any, options: any[], doc: string): Story;
+  setSelectArgType(name: string, config: SelectArgConfig): Story;
 
   /**
    * Set string argument type for story.
    * @param name Argument name.
-   * @param value Initial value.
-   * @param doc Documentation.
+   * @param config Argument config.
    * @returns Current story.
    */
-  setStringArgType(name: string, value: string | undefined, doc: string): Story;
+  setStringArgType(name: string, config: BaseArgConfig<string>): Story;
 
   /**
    * Set boolean argument type for story.
    * @param name Argument name.
-   * @param value Initial value.
-   * @param doc Documentation.
+   * @param config Argument config.
    * @returns Current story.
    */
-  setBooleanArgType(name: string, value: boolean | undefined, doc: string): Story;
+  setBooleanArgType(name: string, config: BaseArgConfig<boolean>): Story;
 }
 
 /**
@@ -50,7 +87,7 @@ export interface Story extends Meta {
  */
 export interface Case extends Meta {
   /**
-   * Set argument value.
+   * Set argument value for case.
    * @param name Argument name.
    * @param value Argument value.
    * @returns Current case.
@@ -65,32 +102,34 @@ export interface Case extends Meta {
 }
 
 /**
- * Create story for the target component.
- * @param title Story title and path.
- * @param component Target component.
- * @returns Story with specified component.
+ * Create the story based on config.
+ * @param config Story config.
+ * @returns Story with config.
  */
-export function createStory(title: string, component: VueFramework['component']): Story {
-  return { title, component, args: {}, argTypes: {}, setSelectArgType, setBooleanArgType, setStringArgType };
+export function createStory(config: StoryConfig): Story {
+  // prettier-ignore
+  return { ...config, args: {}, argTypes: {}, setSelectArgType,
+    setBooleanArgType, setStringArgType };
 }
 
 /**
- * Create case for the target component.
- * @param component Target component.
- * @param configs Custom configs.
- * @returns Case with specified component.
+ * Create the case based on config.
+ * @param config Case config.
+ * @returns Case with config.
  */
-export function createCase(component: VueFramework['component'], configs?: CaseConfig): Case {
+export function createCase(config: CaseConfig): Case {
   const Proxy: Case = ((args: Args, { argTypes }): VueFramework['component'] =>
     defineComponent({
       // prettier-ignore
-      setup: () => ({ target: component, args:
-          { ...defaultArgs(argTypes), ...normalizeArgs(args) } }),
-      template: configs?.content
-        ? `<component :is="target" v-bind="args">
-            ${configs?.content}
-          </component>`
-        : '<component :is="target" v-bind="args"/>'
+      setup: () => ({ target: config.component, ...config?.subcomponents,
+        args: { ...defaultArgs(argTypes), ...normalizeArgs(args) } }),
+      template:
+        config?.template ??
+        (config?.content
+          ? `<component :is="target" v-bind="args">
+              ${config?.content}
+            </component>`
+          : '<component :is="target" v-bind="args"/>')
     })) as unknown as Case;
 
   Proxy.args = {};
@@ -101,49 +140,12 @@ export function createCase(component: VueFramework['component'], configs?: CaseC
 }
 
 /**
- * Define the argument type as select.
- * @param name Argument name.
- * @param value Init value.
- * @param options Options.
- * @param doc Documentation.
- */
-function setSelectArgType<T extends Meta>(this: T, name: string, value: boolean, options: any[], doc: string): T {
-  setArg.call(this, name, value);
-  Object.assign(this.argTypes ?? {}, { [name]: { control: 'select', options, description: doc } });
-  return this;
-}
-
-/**
- * Define the argument type as boolean.
- * @param name Argument name.
- * @param value Init value.
- * @param doc Documentation.
- */
-function setBooleanArgType<T extends Meta>(this: T, name: string, value: boolean, doc: string): T {
-  setArg.call(this, name, value);
-  Object.assign(this.argTypes ?? {}, { [name]: { control: 'boolean', description: doc } });
-  return this;
-}
-
-/**
- * Define the argument type as string.
- * @param name Argument name.
- * @param value Init value.
- * @param doc Documentation.
- */
-function setStringArgType<T extends Meta>(this: T, name: string, value: string, doc: string): T {
-  setArg.call(this, name, value);
-  Object.assign(this.argTypes ?? {}, { [name]: { control: 'text', description: doc } });
-  return this;
-}
-
-/**
- * Define the argument value.
+ * Define the value for argument.
  * @param name Argument name.
  * @param value Argument value.
  */
 function setArg<T extends Meta>(this: T, name: string, value: any): T {
-  Object.assign(this.args ?? {}, { [name]: value });
+  this.args = { ...this.args, [name]: value };
   return this;
 }
 
@@ -177,4 +179,83 @@ function normalizeArgs(args: Args): Args {
   }
 
   return args;
+}
+
+/**
+ * Create the base type based on config.
+ * @param config Argument config.
+ */
+function createBaseArgType(config: BaseArgConfig): Record<string, unknown> {
+  return { if: config.if, description: config.hint, defaultValue: config.value };
+}
+
+/**
+ * Create the documentation for argument.
+ * @param type Argument type.
+ * @param value Argument value.
+ */
+function createDocArgType(type: string, value: any): Record<string, unknown> {
+  const config: Record<string, any> = { table: {} };
+
+  config.table.type = { summary: type };
+
+  if (value !== undefined)
+    // Define default value in case its exist.
+    config.table.defaultValue = { summary: value };
+  return config;
+}
+
+/**
+ * Define the argument type as select.
+ * @param name Argument name.
+ * @param config Argument config.
+ */
+function setSelectArgType(this: Story, name: string, config: SelectArgConfig): Story {
+  setArg.call(this, name, config.value);
+  Object.assign(this.argTypes ?? {}, {
+    [name]: {
+      control: 'select',
+      options: config.options,
+      ...createBaseArgType(config),
+      ...createDocArgType('select', config.value)
+    }
+  });
+
+  return this;
+}
+
+/**
+ * Define the argument type as boolean.
+ * @param name Argument name.
+ * @param config Argument config.
+ */
+function setBooleanArgType(this: Story, name: string, config: BaseArgConfig<boolean>): Story {
+  setArg.call(this, name, config.value);
+  Object.assign(this.argTypes ?? {}, {
+    [name]: {
+      control: 'boolean',
+      ...createBaseArgType(config),
+      ...createDocArgType('boolean', config.value)
+    }
+  });
+
+  return this;
+}
+
+/**
+ * Define the argument type as string.
+ * @param name Argument name.
+ * @param config Argument config.
+ */
+function setStringArgType(this: Story, name: string, config: BaseArgConfig<string>): Story {
+  setArg.call(this, name, config.value);
+  Object.assign(this.argTypes ?? {}, {
+    [name]: {
+      control: 'text',
+      ...createBaseArgType(config),
+      ...createDocArgType('string', config.value)
+    }
+  });
+
+  return this;
 }

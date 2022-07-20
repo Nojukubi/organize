@@ -68,7 +68,7 @@
   });
 
   // Create the CSS classes based on context.
-  const cssClasses: unknown[] = $computed(() => [
+  const cssClasses: object[] = $computed(() => [
     {
       'w-badge--dot': !slots.default,
       'w-badge--rounded': props.rounded,
@@ -99,7 +99,7 @@
 
   .w-badge
     line-height: 1
-    box-sizing: border-box
+    box-sizing: content-box
     white-space: nowrap
     padding: var(--badge-padding, $badge__padding)
     min-width: var(--badge-min-width, $badge__min-width)
