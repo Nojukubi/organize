@@ -24,6 +24,11 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@internal/eslint",
+      "projectFolder": "common/tools/eslint",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@internal/scripts",
       "projectFolder": "common/tools/scripts",
       "shouldPublish": false

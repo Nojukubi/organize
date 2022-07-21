@@ -32,4 +32,4 @@ pugSingleFileComponentIndentation: true
 
 # Plugins to be used during formatting.
 plugins:
-  - ./common/tools/builder/node_modules/@prettier/plugin-pug
+  - ./common/tools/eslint/node_modules/@prettier/plugin-pug
