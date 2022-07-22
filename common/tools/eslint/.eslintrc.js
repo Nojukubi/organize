@@ -1,14 +1,13 @@
-'use strict';
-Object.defineProperty(exports, '__esModule', { value: true });
-exports.eslint = void 0;
 // Eslint configs.
-exports.eslint = {};
+const eslint = {};
+
 // Env global variables.
-exports.eslint.env = {
+eslint.env = {
   node: true
 };
+
 // Custom global variables.
-exports.eslint.globals = {
+eslint.globals = {
   $ref: 'readonly',
   $computed: 'readonly',
   $shallowRef: 'readonly',
@@ -17,22 +16,28 @@ exports.eslint.globals = {
   defineExpose: 'readonly',
   withDefaults: 'readonly'
 };
+
 // Custom parser options.
-exports.eslint.parserOptions = {
+eslint.parserOptions = {
   ecmaVersion: 2020,
   ecmaFeatures: {
     modules: true
   }
 };
+
 // Extend by 3rd party configs.
-exports.eslint.extends = [
+eslint.extends = [
   'plugin:vue/vue3-essential',
   'eslint:recommended',
   '@vue/typescript/recommended',
   'plugin:prettier/recommended'
 ];
+
 // Configure and override rules.
-exports.eslint.rules = {
+eslint.rules = {
   'vue/script-setup-uses-vars': 1,
   '@typescript-eslint/no-unused-vars': 0
 };
+
+// Exports the Eslint custom configs.
+module.exports = eslint;

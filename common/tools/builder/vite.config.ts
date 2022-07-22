@@ -1,7 +1,7 @@
+import eslint from '@internal/eslint';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginEslint from 'vite-plugin-eslint';
 import pluginDeIndent from './plugin/deIndent';
-import { eslint } from './vite.eslint';
 import { resolve } from './vite.resolve';
 import type { UserConfig } from 'vite';
 
