@@ -1,5 +1,6 @@
 const globalConfig = {
-  iconType: 'default'
+  iconType: 'default',
+  styling: 'flat'
 };
 
 function getGlobalConfig() {

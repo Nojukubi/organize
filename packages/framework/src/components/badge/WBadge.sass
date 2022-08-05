@@ -1,7 +1,6 @@
 @use '../../styles/vars' as *
 
 //=Badge
-$badge__radius: $radius-xs
 $badge__padding: $offset-sm
 $badge__min-width: 1em
 $badge__font-size: $font-size
@@ -14,26 +13,13 @@ $badge-dot__padding: 3px
 //=Badge: Inline
 $badge-inline__gap: $offset-md
 
-//=Badge: Variant
-$badge-primary__bg: $primary-bg
-$badge-primary__color: $primary-color
+//=Badge: Pill
+$badge-pill__radius: 1em
+$badge-pill__padding: $offset-sm $offset-md
+$badge-pill__min-width: calc(1em - #{$offset-sm})
 
-$badge-standard__bg: $standard-bg
-$badge-standard__color: $standard-color
-
-$badge-success__bg: $success-bg
-$badge-success__color: $success-color
-
-$badge-danger__bg: $danger-bg
-$badge-danger__color: $danger-color
-
-$badge-warning__bg: $warning-bg
-$badge-warning__color: $warning-color
-
-//=Badge: Rounded
-$badge-rounded__radius: 1em
-$badge-rounded__padding: $offset-sm $offset-md
-$badge-rounded__min-width: calc(1em - #{$offset-sm})
+//=Badge: Round
+$badge-round__radius: $radius-xs
 
 //=Badge: Transparent
 $badge-transparent__opacity: 0.7

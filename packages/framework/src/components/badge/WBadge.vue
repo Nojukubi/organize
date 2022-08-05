@@ -9,7 +9,7 @@
   //- Standalone badge.
   template(v-if="!slots.target")
     +bagde-component
-  //- Badge with target.
+  //- Badge around target.
   .w-badge-target(v-else)
     slot(name="target")
     +bagde-component
@@ -24,9 +24,10 @@
 <script lang="ts" setup>
   import { useAttrs, useSlots } from 'vue';
   // prettier-ignore
-  import { boolProp, tagProp, topProp, leftProp, tileProp,
-    bottomProp, stylingProp, variantProp, rightProp,
-    roundedProp, usePropsCssClasses } from '../../composables';
+  import { cornerProp, boolProp, borderProp,
+    bottomProp, leftProp, rightProp, stylingProp,
+    tagProp, topProp, transparentProp, usePropsCssClasses,
+    variantProp } from '../../composables';
   import type { SetupContext } from 'vue';
 
   // Defines the props.
@@ -36,12 +37,12 @@
     ...rightProp(),
     ...bottomProp(),
     ...leftProp(),
-    ...tileProp(),
-    ...roundedProp(),
+    ...cornerProp(),
+    ...borderProp(),
+    ...transparentProp(),
     ...stylingProp(),
     ...variantProp(),
-    floating: boolProp(),
-    transparent: boolProp()
+    floating: boolProp()
   });
 
   // Default accessibility attrs.
@@ -60,7 +61,8 @@
 
   // prettier-ignore
   // Composable to handle the CSS Classes.
-  const { tileCssClass, roundedCssClass, stylingCssClass,
+  const { borderCssClass, cornerCssClass,
+    transparentCssClass, stylingCssClass,
     variantCssClass } = usePropsCssClasses();
 
   // Determine whether badge is floating.
@@ -70,15 +72,15 @@
 
   // Create the CSS classes based on context.
   const cssClasses: unknown = $computed(() => [
-    tileCssClass.value,
+    cornerCssClass.value,
+    borderedCssClass.value,
+    transparentCssClass.value,
     stylingCssClass.value,
     variantCssClass.value,
-    roundedCssClass.value,
     {
       'w-badge--dot': !slots.default,
       'w-badge--inline': !isFloating,
       'w-badge--floating': isFloating,
-      'w-badge--transparent': props.transparent,
       'w-badge--left': props.left && !props.right,
       'w-badge--bottom': props.bottom && !props.top,
       'w-badge--top': props.top || (isFloating && !props.bottom),
@@ -89,7 +91,7 @@
 
 <style lang="sass">
   @use '@stylize/sass-mixin' as *
-  @use '@stylize/sass-shape' as *
+  @use '../../styles/vars' as *
   @use '../../styles/mixin' as *
   @use './WBadge' as *
 
@@ -100,11 +102,12 @@
     padding: var(--badge-padding, $badge__padding)
     min-width: var(--badge-min-width, $badge__min-width)
     font-size: var(--badge-font-size, $badge__font-size)
-    line-height: var(--badge-line-height, $badge__line-height)
     font-weight: var(--badge-font-weight, $badge__font-weight)
-    border-radius: var(--badge-border-radius, $badge__radius)
+    line-height: var(--badge-line-height, $badge__line-height)
 
     +tile
+    +circle
+    +styling-flat
     +styling-plain
     +styling-outlined
     +styling-elevated
@@ -117,7 +120,8 @@
       gap: var(--badge-inline-gap, $badge-inline__gap)
 
     &--dot
-      +circle(min auto)
+      min-width: auto
+      border-radius: 50%
       padding: var(--badge-dot-padding, $badge-dot__padding)
 
     &--inline#{&}--left
@@ -148,58 +152,71 @@
     &--transparent
       opacity: var(--badge-transparent-opacity, $badge-transparent__opacity)
 
-    &--rounded:not(&--dot)
-      padding: var(--badge-rounded-padding, $badge-rounded__padding)
-      min-width: var(--badge-rounded-min-width, $badge-rounded__min-width)
-      border-radius: var(--badge-rounded-radius, $badge-rounded__radius)
+    &--pill:not(&--dot)
+      padding: var(--badge-pill-padding, $badge-pill__padding)
+      min-width: var(--badge-pill-min-width, $badge-pill__min-width)
+      border-radius: var(--badge-pill-border-radius, $badge-pill__radius)
+
+    &--round:not(&--dot)
+      border-radius: var(--badge-round-border-radius, $badge-round__radius)
 
     &--primary#{&}--flat,
     &--primary#{&}--elevated
-      color: var(--badge-primary-color, var(--primary-color, $badge-primary__color))
-      border: 1px solid var(--badge-primary-border, var(--primary-bg, $badge-primary__bg))
-      background: var(--badge-primary-bg, var(--primary-bg, $badge-primary__bg))
+      color: var(--badge-primary-color, var(--primary-color, $primary-color))
+      background: border-box var(--badge-primary-bg, var(--primary-bg, $primary-bg))
 
     &--primary#{&}--plain,
     &--primary#{&}--outlined
-      color: var(--badge-primary-bg, var(--primary-bg, $badge-primary__bg))
+      color: var(--badge-primary-bg, var(--primary-bg, $primary-bg))
+
+    &--primary#{&}--border
+      border-color: var(--badge-primary-border-color, var(--primary-bg, darken($primary-bg, 10%)))
 
     &--standard#{&}--flat,
     &--standard#{&}--elevated
-      color: var(--badge-standard-color, var(--standard-color, $badge-standard__color))
-      border: 1px solid var(--badge-standard-border, var(--standard-bg, $badge-standard__bg))
-      background: var(--badge-standard-bg, var(--standard-bg, $badge-standard__bg))
+      color: var(--badge-standard-color, var(--standard-color, $standard-color))
+      background: border-box var(--badge-standard-bg, var(--standard-bg, $standard-bg))
 
     &--standard#{&}--plain,
     &--standard#{&}--outlined
-      color: var(--badge-standard-bg, var(--standard-bg, $badge-standard__bg))
+      color: var(--badge-standard-bg, var(--standard-bg, $standard-bg))
+
+    &--standard#{&}--border
+      border-color: var(--badge-standard-border-color, var(--standard-bg, darken($standard-bg, 10%)))
 
     &--success#{&}--flat,
     &--success#{&}--elevated
-      color: var(--badge-success-color, var(--success-color, $badge-success__color))
-      border: 1px solid var(--badge-success-border, var(--success-bg, $badge-success__bg))
-      background: var(--badge-success-bg, var(--success-bg, $badge-success__bg))
+      color: var(--badge-success-color, var(--success-color, $success-color))
+      background: border-box var(--badge-success-bg, var(--success-bg, $success-bg))
 
     &--success#{&}--plain,
     &--success#{&}--outlined
-      color: var(--badge-success-bg, var(--success-bg, $badge-success__bg))
+      color: var(--badge-success-bg, var(--success-bg, $success-bg))
+
+    &--success#{&}--border
+      border-color: var(--badge-success-border-color, var(--success-bg, darken($success-bg, 10%)))
 
     &--danger#{&}--flat,
     &--danger#{&}--elevated
-      color: var(--badge-danger-color, var(--danger-color, $badge-danger__color))
-      border: 1px solid var(--badge-danger-border, var(--danger-bg, $badge-danger__bg))
-      background: var(--badge-danger-bg, var(--danger-bg, $badge-danger__bg))
+      color: var(--badge-danger-color, var(--danger-color, $danger-color))
+      background: border-box var(--badge-danger-bg, var(--danger-bg, $danger-bg))
 
     &--danger#{&}--plain,
     &--danger#{&}--outlined
-      color: var(--badge-danger-bg, var(--danger-bg, $badge-danger__bg))
+      color: var(--badge-danger-bg, var(--danger-bg, $danger-bg))
+
+    &--danger#{&}--border
+      border-color: var(--badge-danger-border-color, var(--danger-bg, darken($danger-bg, 10%)))
 
     &--warning#{&}--flat,
     &--warning#{&}--elevated
-      color: var(--badge-warning-color, var(--warning-color, $badge-warning__color))
-      border: 1px solid var(--badge-warning-border, var(--warning-bg, $badge-warning__bg))
-      background: var(--badge-warning-bg, var(--warning-bg, $badge-warning__bg))
+      color: var(--badge-warning-color, var(--warning-color, $warning-color))
+      background: border-box var(--badge-warning-bg, var(--warning-bg, $warning-bg))
 
     &--warning#{&}--plain,
     &--warning#{&}--outlined
-      color: var(--badge-warning-bg, var(--warning-bg, $badge-warning__bg))
+      color: var(--badge-warning-bg, var(--warning-bg, $warning-bg))
+
+    &--warning#{&}--border
+      border-color: var(--badge-warning-border-color, var(--warning-bg, darken($warning-bg, 10%)))
 </style>
