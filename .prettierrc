@@ -31,5 +31,4 @@ pugWrapAttributesThreshold: 1
 pugSingleFileComponentIndentation: true
 
 # Plugins to be used during formatting.
-plugins:
-  - ./common/tools/eslint/node_modules/@prettier/plugin-pug
+plugins: [./common/tools/eslint/node_modules/@prettier/plugin-pug]

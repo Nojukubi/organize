@@ -16,24 +16,24 @@ jobs:
 
     # A job contains a sequence of steps.
     steps:
-      # Fetch the repository.
+      # Fetch repository.
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # Install default Node.js.
+      # Install Node.js.
       - name: Environment
         uses: actions/setup-node@v3
 
-      # Install the dependencies.
+      # Install dependencies.
       - name: Dependencies
         run: node common/scripts/install-run-rush.js install
 
-      # Build registered packages.
+      # Build project packages.
       - name: Build project
         run: node common/scripts/install-run-rush.js build
 
-      # Test registered packages.
+      # Test project packages.
       - name: Testing project
         run: node common/scripts/install-run-rush.js test
