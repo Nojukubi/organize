@@ -1,122 +1,150 @@
 <template lang="pug">
   component.w-list-item(
-    :is="tagRoot",
-    :class="classCss",
-    :style="styleCss",
-    :target="target",
-    v-bind="dynamicProps")
-    .w-list-item__content
-      slot
+    :is="dynamicTag",
+    :class="cssClasses",
+    v-bind="{ ...dynamicAttrs, ...attrs }")
+    slot(name="default")
 </template>
 
 <script lang="ts" setup>
-  import { resolveComponent } from 'vue';
-  import type { CSSProperties } from 'vue';
-  import type { RouteLocationRaw } from 'vue-router';
+  import { inject, useAttrs } from 'vue';
+  // prettier-ignore
+  import { activeProp, borderedProp, disabledProp,
+    interactiveProp, roundedProp, routeHrefProp,
+    routeReplaceProp, routeTargetProp, routeToProp,
+    sizeProp, tagProp, usePropsCssClasses,
+    usePropsLink } from '../../composables';
+  import type { Component, SetupContext } from 'vue';
 
   // Defines the props.
-  const props = withDefaults(
-    defineProps<{
-      tag?: string;
-      href?: string;
-      to?: RouteLocationRaw;
-      target?: string;
-      rounded?: number | boolean;
-      disabled?: boolean;
-      interactive?: boolean;
-    }>(),
-    {
-      tag: 'div'
-    }
-  );
-
-  const isLink: boolean = $computed((): boolean => {
-    return !!props.to || !!props.href;
+  const props = defineProps({
+    ...tagProp(),
+    ...sizeProp(),
+    ...activeProp(),
+    ...roundedProp(),
+    ...borderedProp(),
+    ...disabledProp(),
+    ...routeToProp(),
+    ...routeHrefProp(),
+    ...routeTargetProp(),
+    ...routeReplaceProp(),
+    ...interactiveProp()
   });
 
-  const tagRoot: any = $computed(() => {
-    return props.href ? 'a' : props.to ? resolveComponent('RouterLink') : props.tag;
+  // prettier-ignore
+  // Retrieve config from parent.
+  const config = inject('listConfig',
+    { direction: 'vertical' });
+
+  // Composable to handle the Attrs.
+  const attrs: SetupContext['attrs'] = useAttrs();
+
+  // Composable to handle the Link Props.
+  const { linkTag, linkAttrs } = usePropsLink();
+
+  // prettier-ignore
+  // Composable to handle the CSS Classes.
+  const { activeCssClass, borderedCssClass, disabledCssClass,
+    roundedCssClass, interactiveCssClass } = usePropsCssClasses();
+
+  // Create the CSS classes based on context.
+  const cssClasses: unknown = $computed(() => [
+    activeCssClass.value,
+    borderedCssClass.value,
+    disabledCssClass.value,
+    roundedCssClass.value,
+    interactiveCssClass.value,
+    { [`w-list-item--${config.direction}`]: true }
+  ]);
+
+  // Determine whether item is interactive.
+  const isInteractive: boolean = $computed(() => {
+    return !props.disabled && (props.interactive || !!linkTag.value);
   });
 
-  const dynamicProps: any = $computed(() => {
-    return props.to
-      ? { 'to': props.to, 'active-class': 'w-list-item--active', 'exact-active-class': 'w-list-item--exact-active' }
-      : {};
+  // Determine the root tag based on context.
+  const dynamicTag: Component | string = $computed(() => {
+    return linkTag.value ?? props.tag;
   });
 
-  const isInteractive: boolean = $computed((): boolean => {
-    return !props.disabled && (props.interactive || isLink);
-  });
-
-  const classCss: object = $computed((): object => ({
-    'w-list-item--rounded': props.rounded,
-    'w-list-item--disabled': props.disabled,
-    'w-list-item--interactive': isInteractive
-  }));
-
-  const styleCss: CSSProperties = $computed((): CSSProperties => {
-    const styleProps: CSSProperties = {};
-
-    if (typeof props.rounded === 'number')
-      // Assign the border radius with units.
-      styleProps.borderRadius = `${props.rounded}px`;
-
-    return styleProps;
-  });
+  // Determine the dynamic attrs based on context.
+  const dynamicAttrs: unknown = $computed(() => linkAttrs.value);
 </script>
 
 <style lang="sass" scoped>
   @use '~@stylize/sass-mixin' as *
+  @use '../../styles/vars' as *
+  @use './WList' as *
 
   .w-list-item
-    $root: &
+    flex-grow: 1
     outline: none
-    color: var(--list-item-color, black)
-    padding: 8px 16px
     position: relative
-    min-height: 32px
+    transition: color .5s
+    box-sizing: content-box
     text-decoration: none
-    transition: color .3s
-    +flex-row
+    color: var(--list-item-color, $list-item__color)
+    padding: var(--list-item-padding, $list-item__padding)
+    +flex-row($cross: center, $wrap: nowrap)
+
+    :deep(img),
+    :deep(svg)
+      display: inline-block
 
     +before
-      +absolute-cover
-      transition: background-color .3s
-      background: var(--list-item-bg, transparent)
+      opacity: $list-item__opacity
+      transition: background-color .5s, opacity .5s
+      background: var(--list-item-bg, $list-item__bg)
+      +absolute-cover($z: -1)
 
-    &__content
-      flex: 1 0 0
-      position: relative
-      +flex-row(flex-start center nowrap)
+    &--interactive
+      cursor: pointer
 
     &--rounded
       &, &:before
-        border-radius: 6px
+        border-radius: var(--list-item-radius, $list-item__radius)
 
-    &--interactive
-      +support-hover
-        &:hover
-          color: var(--list-item-hover-color, var(--list-item-color, inherit))
+    &--normal
+      min-height: var(--list-item-normal-min-height, $min-height-sm)
 
-          &:before
-            background: var(--list-item-hover-bg, darkgrey)
+    &--bordered
+      border-style: solid
+      border-color: var(--list-border-color, $list__border-color)
+
+    &--bordered#{&}--vertical
+      border-width: $list-item-vertical__border-width
+
+    &--bordered#{&}--horizontal
+      border-width: $list-item-horizontal__border-width
 
     &--active
-      color: var(--list-item-active-color, white)
+      color: var(--list-item-active-color, $list-item-active__color)
 
       &:before
-        background: var(--list-item-active-bg, black)
-
-      +support-hover
-        &:hover
-          color: var(--list-item-active-color, white)
-
-          &:before
-            background: var(--list-item-active-bg, black)
+        opacity: var(--list-item-active-opacity, $list-item-active__opacity)
+        background: var(--list-item-active-bg, $list-item-active__bg)
 
     &--disabled
+      cursor: default
+      user-select: none
+      pointer-events: none
+      opacity: var(--list-item-disabled-opacity, $list-item-disabled__opacity)
+
       &:before
         content: none
-        user-select: none
-        pointer-events: none
+
+    +support-hover
+      &--interactive:hover:not(&--disabled)
+        color: var(--list-item-hover-color, var(--list-item-color, inherit))
+
+        &:before
+          opacity: var(--list-item-hover-opacity, $list-item-hover__opacity)
+          background: var(--list-item-hover-bg, $list-item-hover__bg)
+
+      &--active:hover:not(&--disabled)
+        color: var(--list-item-active-color, $list-item-active__color)
+
+        &:before
+          opacity: var(--list-item-active-opacity, $list-item-active__opacity)
+          background: var(--list-item-active-bg, $list-item-active__bg)
 </style>
