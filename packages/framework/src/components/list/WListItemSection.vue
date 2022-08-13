@@ -1,44 +1,60 @@
 <template lang="pug">
   component.w-list-item-section(
-    :is="tag",
-    :class="classCss")
-    slot
+    :is="props.tag",
+    :class="cssClasses")
+    slot(name="default")
 </template>
 
 <script lang="ts" setup>
-  // Defines the props.
-  const props = withDefaults(
-    defineProps<{
-      tag?: string;
-      left?: boolean;
-      right?: boolean;
-    }>(),
-    {
-      tag: 'div'
-    }
-  );
+  // prettier-ignore
+  import { bottomProp, leftProp, rightProp, tagProp,
+    topProp, usePropsCssClasses } from '../../composables';
 
-  // Create the class names based on the defined props.
-  const classCss: object = $computed((): object => ({
-    'w-list-item-section--left': props.left,
-    'w-list-item-section--right': props.right,
-    'w-list-item-section--content': !props.left && !props.right
-  }));
+  // Defines the props.
+  const props = defineProps({
+    ...tagProp(),
+    ...topProp(),
+    ...rightProp(),
+    ...bottomProp(),
+    ...leftProp()
+  });
+
+  // prettier-ignore
+  // Composable to handle the CSS Classes.
+  const { bottomCssClass, leftCssClass, rightCssClass,
+    topCssClass } = usePropsCssClasses();
+
+  // Create the CSS classes based on context.
+  const cssClasses: object = $computed(() => [
+    topCssClass.value,
+    rightCssClass.value,
+    bottomCssClass.value,
+    leftCssClass.value,
+    { 'w-list-item-section--content': !props.left && !props.right }
+  ]);
 </script>
 
 <style lang="sass" scoped>
   @use '~@stylize/sass-mixin' as *
+  @use './WList' as *
 
   .w-list-item-section
+    gap: $list-item-section__gap
     +flex-col(center)
+
+    &--top
+      align-self: flex-start
+
+    &--bottom
+      align-self: flex-end
 
     &--left
       justify-self: flex-start
-      margin-right: 12px
+      margin-right: $list-item-section__margin
 
     &--right
       justify-self: flex-end
-      margin-left: 12px
+      margin-left: $list-item-section__margin
 
     &--content
       width: auto
@@ -47,5 +63,5 @@
       flex: 2 1 0
 
       & + &
-        margin-left: 8px
+        margin-left: $list-item-section__margin
 </style>
