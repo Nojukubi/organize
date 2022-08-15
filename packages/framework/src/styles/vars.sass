@@ -1,7 +1,9 @@
+@use 'sass:color' as *
 @use '@stylize/sass-func/unit' as *
 
 $primary-bg: #3379ca
 $primary-color: #fff
+$primary-border: adjust($primary-bg, $lightness: -10%)
 
 $standard-bg: #415058
 $standard-color: #fff
@@ -32,5 +34,9 @@ $offset-lg: rem(8px)
 $offset-xl: rem(10px)
 
 $radius-xs: 4px
-$radius-sm: 6px
-$radius-md: 8px
+$radius-sm: 8px
+$radius-md: 12px
+
+$min-height-xs: 24px
+$min-height-sm: 32px
+$min-height-md: 40px
