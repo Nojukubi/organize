@@ -18,8 +18,8 @@ const addons: Preset[] = [
 
 // Find by pattern inside of framework.
 const stories: string[] = [
-  '../node_modules/@organize/**/*.stories.mdx',
-  '../node_modules/@organize/**/*.stories.@(js|jsx|ts|tsx)'
+  '../node_modules/@internal/**/*.stories.mdx',
+  '../node_modules/@internal/**/*.stories.@(js|jsx|ts|tsx)'
 ];
 
 // Define the framework which used in stories.

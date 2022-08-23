@@ -15,8 +15,8 @@
       "projectFolder": "apps/mobile"
     },
     {
-      "packageName": "@organize/framework",
-      "projectFolder": "packages/framework"
+      "packageName": "@internal/framework",
+      "projectFolder": "common/framework"
     },
     {
       "packageName": "@internal/demo",

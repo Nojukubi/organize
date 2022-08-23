@@ -1,0 +1,23 @@
+{
+  "name": "@internal/framework",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "scripts": {
+    "lint": "tool lint"
+  },
+  "dependencies": {
+    "@stylize/sass-func": "^1.0.4",
+    "@stylize/sass-mixin": "^1.1.0",
+    "@stylize/sass-shape": "^2.0.3",
+    "date-fns": "^2.29.1",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@internal/scripts": "0.0.0",
+    "@internal/storybook": "0.0.0",
+    "@internal/typescript": "0.0.0",
+    "vue-router": "^4.1.3"
+  }
+}

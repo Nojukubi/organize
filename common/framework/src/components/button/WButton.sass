@@ -1,0 +1,26 @@
+@use '~@stylize/sass-func/unit' as *
+@use '~@stylize/sass-func/math' as *
+@use '../variable' as *
+
+//=Button
+$button__font-size: $font-size
+$button__font-weight: normal
+$button__line-height: 1.2
+
+//=Button: Small
+$button-small__radius: $radius-xs * 0.75
+$button-small__font-size: rem(10px)
+$button-small__padding: $offset-sm $offset-sm * 2
+
+//=Button: Normal
+$button-normal__radius: $radius-xs
+$button-normal__font-size: rem(12px)
+$button-normal__padding: $offset-sm $offset-sm * 3
+
+//=Button: Large
+$button-large__radius: $radius-xs * 1.5
+$button-large__font-size: rem(14px)
+$button-large__padding: $offset-sm $offset-sm * 4
+
+//=Button: Disabled
+$button-disabled__opacity: 0.3

@@ -8,6 +8,8 @@ eslint.env = {
 
 // Custom global variables.
 eslint.globals = {
+  $: 'readonly',
+  $$: 'readonly',
   $ref: 'readonly',
   $computed: 'readonly',
   $shallowRef: 'readonly',
@@ -36,7 +38,10 @@ eslint.extends = [
 // Configure and override rules.
 eslint.rules = {
   'vue/script-setup-uses-vars': 1,
-  '@typescript-eslint/no-unused-vars': 0
+  '@typescript-eslint/no-unused-vars': 0,
+  '@typescript-eslint/no-explicit-any': 0,
+  '@typescript-eslint/no-empty-interface': 0,
+  '@typescript-eslint/no-inferrable-types': 0
 };
 
 // Exports the Eslint custom configs.

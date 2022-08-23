@@ -10,11 +10,18 @@ import type { RouteLocationRaw, RouteRecordRaw } from 'vue-router';
 const habitRoute: RouteRecordRaw = {
   name: 'habit',
   path: '/habit',
-  alias: ['/'],
   components: {
     default: (): Promise<Component> => import('./HabitView.vue'),
-    helper: (): Promise<Component> => import('./HabitDrawer.vue')
-  }
+    detail: (): Promise<Component> => import('./HabitDetail.vue'),
+    header: (): Promise<Component> => import('./HabitHeader.vue')
+  },
+  children: [
+    {
+      name: 'habit-create',
+      path: 'create',
+      component: (): Promise<Component> => import('./HabitCreate.vue')
+    }
+  ]
 };
 
 // Create the user-level route location that can be passed to

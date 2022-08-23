@@ -97,6 +97,7 @@ export interface Case extends Meta {
   /**
    * Disable argument for case.
    * @param name Argument name.
+   * @returns Current case.
    */
   disableArg(name: string): Case;
 }
@@ -104,7 +105,7 @@ export interface Case extends Meta {
 /**
  * Create the story based on config.
  * @param config Story config.
- * @returns Story with config.
+ * @returns Created story.
  */
 export function createStory(config: StoryConfig): Story {
   // prettier-ignore
@@ -115,7 +116,7 @@ export function createStory(config: StoryConfig): Story {
 /**
  * Create the case based on config.
  * @param config Case config.
- * @returns Case with config.
+ * @returns Created case.
  */
 export function createCase(config: CaseConfig): Case {
   const Proxy: Case = ((args: Args, { argTypes }): VueFramework['component'] =>
@@ -143,6 +144,7 @@ export function createCase(config: CaseConfig): Case {
  * Define the value for argument.
  * @param name Argument name.
  * @param value Argument value.
+ * @returns Current meta.
  */
 function setArg<T extends Meta>(this: T, name: string, value: any): T {
   this.args = { ...this.args, [name]: value };
@@ -152,6 +154,7 @@ function setArg<T extends Meta>(this: T, name: string, value: any): T {
 /**
  * Disable the argument as control.
  * @param name Argument name.
+ * @returns Current meta.
  */
 function disableArg<T extends Meta>(this: T, name: string): T {
   this.argTypes = { ...this.argTypes, [name]: { table: { disable: true } } };
@@ -161,6 +164,7 @@ function disableArg<T extends Meta>(this: T, name: string): T {
 /**
  * Default the args based on the keys.
  * @param args Arguments.
+ * @returns Defaulted args.
  */
 function defaultArgs(args: Args): Args {
   // prettier-ignore
@@ -171,19 +175,20 @@ function defaultArgs(args: Args): Args {
 /**
  * Normalize the argument received from URL.
  * @param args Arguments.
+ * @returns Normalized args.
  */
 function normalizeArgs(args: Args): Args {
   for (let key in args) {
     if (args[key] === 'true') args[key] = true;
     else if (args[key] === 'false') args[key] = false;
   }
-
   return args;
 }
 
 /**
  * Create the base type based on config.
  * @param config Argument config.
+ * @returns Base arg type.
  */
 function createBaseArgType(config: BaseArgConfig): Record<string, unknown> {
   return { if: config.if, description: config.hint, defaultValue: config.value };
@@ -193,6 +198,7 @@ function createBaseArgType(config: BaseArgConfig): Record<string, unknown> {
  * Create the documentation for argument.
  * @param type Argument type.
  * @param value Argument value.
+ * @returns Doc arg type.
  */
 function createDocArgType(type: string, value: any): Record<string, unknown> {
   const config: Record<string, any> = { table: {} };
@@ -209,6 +215,7 @@ function createDocArgType(type: string, value: any): Record<string, unknown> {
  * Define the argument type as select.
  * @param name Argument name.
  * @param config Argument config.
+ * @returns Current story.
  */
 function setSelectArgType(this: Story, name: string, config: SelectArgConfig): Story {
   setArg.call(this, name, config.value);
@@ -220,7 +227,6 @@ function setSelectArgType(this: Story, name: string, config: SelectArgConfig): S
       ...createDocArgType('select', config.value)
     }
   });
-
   return this;
 }
 
@@ -228,6 +234,7 @@ function setSelectArgType(this: Story, name: string, config: SelectArgConfig): S
  * Define the argument type as boolean.
  * @param name Argument name.
  * @param config Argument config.
+ * @returns Current story.
  */
 function setBooleanArgType(this: Story, name: string, config: BaseArgConfig<boolean>): Story {
   setArg.call(this, name, config.value);
@@ -238,7 +245,6 @@ function setBooleanArgType(this: Story, name: string, config: BaseArgConfig<bool
       ...createDocArgType('boolean', config.value)
     }
   });
-
   return this;
 }
 
@@ -246,6 +252,7 @@ function setBooleanArgType(this: Story, name: string, config: BaseArgConfig<bool
  * Define the argument type as string.
  * @param name Argument name.
  * @param config Argument config.
+ * @returns Current story.
  */
 function setStringArgType(this: Story, name: string, config: BaseArgConfig<string>): Story {
   setArg.call(this, name, config.value);
@@ -256,6 +263,5 @@ function setStringArgType(this: Story, name: string, config: BaseArgConfig<strin
       ...createDocArgType('string', config.value)
     }
   });
-
   return this;
 }

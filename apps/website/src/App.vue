@@ -2,29 +2,36 @@
   w-layout.application(
     view="lhr lcr lfr",
     data-application)
-    w-header.application__header
-      router-view(name="header")
+    app-header
     app-drawer
-    router-view(name="helper")
+    router-view(name="detail")
     w-content.application__content
       router-view(name="default")
-    w-footer.application__footer
-      router-view(name="footer")
+    app-footer
 </template>
 
 <script lang="ts" setup>
   // prettier-ignore
-  import { WLayout, WHeader, WFooter,
-    WContent } from '@organize/framework';
-  import AppDrawer from './AppDrawer.vue';
+  import { WLayout, WContent,
+    useGlobalConfig } from '@internal/framework';
   import { provide } from 'vue';
+  import AppHeader from './AppHeader.vue';
+  import AppFooter from './AppFooter.vue';
+  import AppDrawer from './AppDrawer.vue';
   import { useLocations } from './plugins/router';
 
-  provide('routeLocations', useLocations().locations);
+  // Composable to handle the Global Config.
+  const { changeGlobalConfig } = useGlobalConfig();
+
+  // Change the framework global configuration.
+  changeGlobalConfig({ iconType: 'svg' });
+
+  // Provide the available route locations.
+  provide('routeLocations', useLocations());
 </script>
 
 <style lang="sass">
-  @use '@stylize/sass-mixin' as *
+  @use '~@stylize/sass-mixin' as *
 
   +font-face(Roboto, '/fonts/roboto')
 
@@ -37,10 +44,4 @@
 
     &__calendar
       margin: 16px auto
-
-    &__header
-      border-bottom: 1px solid #eee
-
-    &__footer
-      border-top: 1px solid #eee
 </style>

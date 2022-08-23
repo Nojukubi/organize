@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "main": "tsconfig.json",
-  "types": "typings.d.ts",
+  "types": "index.d.ts",
   "dependencies": {
-    "@types/node": "^17.0.45",
-    "vite": "^3.0.0",
+    "@types/node": "^18.7.5",
+    "vite": "^3.0.7",
     "vue": "^3.2.37",
     "typescript": "^4.7.4"
   }
