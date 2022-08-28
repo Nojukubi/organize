@@ -5,7 +5,7 @@
   "main": "index.ts",
   "module": "index.ts",
   "dependencies": {
-    "@storybook/vue3": "^6.5.9",
+    "@storybook/vue3": "^6.5.10",
     "vue": "^3.2.37"
   },
   "devDependencies": {

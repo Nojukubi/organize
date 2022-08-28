@@ -31,17 +31,17 @@ function execEslint() {
   return (0, child_process_1.spawn)(eslint, ['.', '-c', (0, path_1.join)(path, '.eslintrc.js'),
         '--ext', '.vue,.ts'], spawnOptions);
 }
-// Execute the local vue tsc executable with args.
-function execVueTsc() {
-  // Path to the local vue tsc executable.
-  const vueTsc = (0, npm_which_1.sync)('vue-tsc', { cwd });
-  // Execute local executable with arguments.
-  return (0, child_process_1.spawn)(vueTsc, ['--noEmit'], spawnOptions);
-}
 // Execute the local vite executable with args.
 function execVite(args = []) {
   // Path to the local vite executable.
   const vite = (0, npm_which_1.sync)('vite', { cwd });
   // Execute local executable with arguments.
   return (0, child_process_1.spawn)(vite, args, spawnOptions);
+}
+// Execute the local vue tsc executable with args.
+function execVueTsc() {
+  // Path to the local vue tsc executable.
+  const vueTsc = (0, npm_which_1.sync)('vue-tsc', { cwd });
+  // Execute local executable with arguments.
+  return (0, child_process_1.spawn)(vueTsc, ['--noEmit'], spawnOptions);
 }

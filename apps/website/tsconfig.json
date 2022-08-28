@@ -1,5 +1,9 @@
 {
   "extends": "@internal/typescript",
   "include": ["src/**/*.ts", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "#/*": ["./src/*"] }
+  }
 }

@@ -1,0 +1,55 @@
+@use '~@stylize/sass-func/unit' as *
+@use '~@stylize/sass-func/list' as *
+
+$sizes: xs, sm, md, lg, xl
+$offset: rem(8px)
+
+@for $i from 1 through length($sizes)
+  $size-name: nth($sizes, $i)
+  $size-offset: $offset * $i * 0.5
+
+  .w-pa-#{$size-name}
+    padding: $size-offset
+
+  .w-pl-#{$size-name}
+    padding-left: $size-offset
+
+  .w-pr-#{$size-name}
+    padding-right: $size-offset
+
+  .w-pt-#{$size-name}
+    padding-top: $size-offset
+
+  .w-pb-#{$size-name}
+    padding-bottom: $size-offset
+
+  .w-px-#{$size-name}
+    @extend .w-pl-#{$size-name}
+    @extend .w-pr-#{$size-name}
+
+  .w-py-#{$size-name}
+    @extend .w-pt-#{$size-name}
+    @extend .w-pb-#{$size-name}
+
+  .w-ma-#{$size-name}
+    margin: $size-offset
+
+  .w-ml-#{$size-name}
+    margin-left: $size-offset
+
+  .w-mr-#{$size-name}
+    margin-right: $size-offset
+
+  .w-mt-#{$size-name}
+    margin-top: $size-offset
+
+  .w-mb-#{$size-name}
+    margin-bottom: $size-offset
+
+  .w-mx-#{$size-name}
+    @extend .w-ml-#{$size-name}
+    @extend .w-mr-#{$size-name}
+
+  .w-my-#{$size-name}
+    @extend .w-mt-#{$size-name}
+    @extend .w-mb-#{$size-name}
