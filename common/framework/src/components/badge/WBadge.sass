@@ -1,25 +1,34 @@
+@use '~@stylize/sass-func/unit' as *
 @use '../variable' as *
 
 //=Badge
-$badge__padding: $offset-sm
-$badge__min-width: 1em
-$badge__font-size: $font-size
-$badge__font-weight: normal
-$badge__line-height: 1
+$badge__padding: 0.3em 0.4em
+$badge__min-width: 0.8em
 
 //=Badge: Dot
-$badge-dot__padding: 3px
+$badge-dot__padding: 0.2em
+
+//=Badge: Pill
+$badge-pill__radius: 1em
+
+//=Badge: Circle
+$badge-circle__padding: 0.3em
+$badge-circle__min-width: 1em
 
 //=Badge: Inline
 $badge-inline__gap: $offset-md
 
-//=Badge: Pill
-$badge-pill__radius: 1em
-$badge-pill__padding: $offset-sm $offset-md
-$badge-pill__min-width: calc(1em - #{$offset-sm})
+//=Badge: Small
+$badge-small__radius: $radius-xs * 0.75
+$badge-small__font-size: rem(10px)
 
-//=Badge: Round
-$badge-round__radius: $radius-xs
+//=Badge: Normal
+$badge-normal__radius: $radius-xs
+$badge-normal__font-size: rem(12px)
+
+//=Badge: Large
+$badge-large__radius: $radius-xs * 1.5
+$badge-large__font-size: rem(14px)
 
 //=Badge: Transparent
 $badge-transparent__opacity: 0.7

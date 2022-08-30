@@ -4,7 +4,7 @@
       component(
         :is="Component",
         @create="refresh")
-    w-list
+    w-list.habit-view__list
       w-list-item(v-for="habit in habits")
         | {{ habit.name }}
 </template>
@@ -24,5 +24,3 @@
     habits = await getHabits();
   }
 </script>
-
-<style lang="sass"></style>

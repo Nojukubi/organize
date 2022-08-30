@@ -7,6 +7,8 @@ import WBadge from './WBadge.vue';
 // Create the story metadata.
 export default createStory({ title: 'Framework/Badge', component: WBadge })
   .setStringArgType('tag', { value: 'div', hint: 'Root html tag' })
+  .setSelectArgType('size', { value: 'normal', options:
+    ['small', 'normal', 'large'], hint: 'Size type' })
   .setSelectArgType('variant', { value: 'primary', options: ['primary',
     'standard', 'success', 'danger', 'warning'], hint: 'Variant name' })
   .setSelectArgType('styling', { value: 'flat', options:
@@ -55,4 +57,5 @@ export const Indicator: Case = createCase({
 })
   .setArg('top', true)
   .setArg('right', true)
+  .disableArg('corner')
   .disableArg('styling');

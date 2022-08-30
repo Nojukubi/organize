@@ -39,15 +39,15 @@
   // prettier-ignore
   // Composable to handle the CSS Classes.
   const { absoluteCssClass, topCssClass, leftCssClass,
-    rightCssClass, bottomCssClass } = usePropsCssClasses();
+    rightCssClass, bottomCssClass } = $(usePropsCssClasses());
 
   // Create the CSS classes based on context.
   const cssClasses: object = $computed(() => [
-    absoluteCssClass.value,
-    topCssClass.value,
-    rightCssClass.value,
-    bottomCssClass.value,
-    leftCssClass.value
+    absoluteCssClass,
+    topCssClass,
+    rightCssClass,
+    bottomCssClass,
+    leftCssClass
   ]);
 
   // Handler to emit events on click.

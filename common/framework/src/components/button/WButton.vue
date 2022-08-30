@@ -93,8 +93,6 @@
     user-select: none
     box-sizing: border-box
     text-decoration: none
-    font-weight: var(--button-font-weight, $button__font-weight)
-    line-height: var(--button-line-height, $button__line-height)
     +inline-flex-row-center
 
     +corner-tile
@@ -121,7 +119,7 @@
       cursor: not-allowed
       pointer-events: none
       opacity: var(--button-disabled-opacity, $button-disabled__opacity)
-      +before(null)
+      +before(none)
 
     &--small
       padding: var(--button-small-padding, $button-small__padding)
@@ -168,45 +166,60 @@
     &--primary#{&}--flat,
     &--primary#{&}--elevate
       color: var(--button-primary-color, var(--primary-color, $primary-color))
-      background: var(--button-primary-bg, var(--primary-bg, $primary-bg))
+      border: 1px solid var(--button-primary-border, transparent)
+      background: border-box var(--button-primary-bg, var(--primary-bg, $primary-bg))
 
-    &--primary#{&}--plain,
+    &--primary#{&}--plain
+      color: var(--button-primary-plain-color, var(--primary-bg, $primary-bg))
+
     &--primary#{&}--outline
-      color: var(--button-primary-bg, var(--primary-bg, $primary-bg))
+      color: var(--button-primary-outline-color, var(--primary-bg, $primary-bg))
 
     &--standard#{&}--flat,
     &--standard#{&}--elevate
       color: var(--button-standard-color, var(--standard-color, $standard-color))
-      background: var(--button-standard-bg, var(--standard-bg, $standard-bg))
+      border: 1px solid var(--button-standard-border, transparent)
+      background: border-box var(--button-standard-bg, var(--standard-bg, $standard-bg))
 
-    &--standard#{&}--plain,
+    &--standard#{&}--plain
+      color: var(--button-standard-plain-color, var(--standard-bg, $standard-bg))
+
     &--standard#{&}--outline
-      color: var(--button-standard-bg, var(--standard-bg, $standard-bg))
+      color: var(--button-standard-outline-color, var(--standard-bg, $standard-bg))
 
     &--success#{&}--flat,
     &--success#{&}--elevate
       color: var(--button-success-color, var(--success-color, $success-color))
-      background: var(--button-success-bg, var(--success-bg, $success-bg))
+      border: 1px solid var(--button-success-border, transparent)
+      background: border-box var(--button-success-bg, var(--success-bg, $success-bg))
 
-    &--success#{&}--plain,
+    &--success#{&}--plain
+      color: var(--button-success-plain-color, var(--success-bg, $success-bg))
+
     &--success#{&}--outline
-      color: var(--button-success-bg, var(--success-bg, $success-bg))
+      color: var(--button-success-outline-color, var(--success-bg, $success-bg))
 
     &--danger#{&}--flat,
     &--danger#{&}--elevate
       color: var(--button-danger-color, var(--danger-color, $danger-color))
-      background: var(--button-danger-bg, var(--danger-bg, $danger-bg))
+      border: 1px solid var(--button-danger-border, transparent)
+      background: border-box var(--button-danger-bg, var(--danger-bg, $danger-bg))
 
-    &--danger#{&}--plain,
+    &--danger#{&}--plain
+      color: var(--button-danger-plain-color, var(--danger-bg, $danger-bg))
+
     &--danger#{&}--outline
-      color: var(--button-danger-bg, var(--danger-bg, $danger-bg))
+      color: var(--button-danger-outline-color, var(--danger-bg, $danger-bg))
 
     &--warning#{&}--flat,
     &--warning#{&}--elevate
       color: var(--button-warning-color, var(--warning-color, $warning-color))
-      background: var(--button-warning-bg, var(--warning-bg, $warning-bg))
+      border: 1px solid var(--button-warning-border, transparent)
+      background: border-box var(--button-warning-bg, var(--warning-bg, $warning-bg))
 
-    &--warning#{&}--plain,
+    &--warning#{&}--plain
+      color: var(--button-warning-plain-color, var(--warning-bg, $warning-bg))
+
     &--warning#{&}--outline
-      color: var(--button-warning-bg, var(--warning-bg, $warning-bg))
+      color: var(--button-warning-outline-color, var(--warning-bg, $warning-bg))
 </style>

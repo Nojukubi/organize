@@ -9,7 +9,7 @@
 </script>
 
 <style lang="sass" scoped>
-  @use '@stylize/sass-mixin' as *
+  @use '~@stylize/sass-mixin' as *
 
   .habit-header
     height: 100%

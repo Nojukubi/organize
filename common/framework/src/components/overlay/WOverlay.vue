@@ -25,14 +25,14 @@
 
   // prettier-ignore
   // Composable to handle the CSS Classes.
-  const { absoluteCssClass,
-    transparentCssClass } = usePropsCssClasses();
+  const { absoluteCssClass, transparentCssClass } =
+    $(usePropsCssClasses());
 
   // prettier-ignore
   // Create the CSS classes based on context.
   const cssClasses: unknown = $computed(() => [
-    absoluteCssClass.value,
-    transparentCssClass.value
+    absoluteCssClass,
+    transparentCssClass
   ]);
 </script>
 
@@ -53,6 +53,6 @@
     &__backdrop
       +absolute-cover($z: -1)
       border-radius: inherit
-      opacity: $overlay__opacity
-      background: $overlay__bg
+      opacity: var(--overlay-opacity, $overlay__opacity)
+      background: var(--overlay-bg, $overlay__bg)
 </style>

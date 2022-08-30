@@ -23,8 +23,8 @@
 <script lang="ts" setup>
   import { useAttrs, useSlots } from 'vue';
   // prettier-ignore
-  import { cornerProp, boolProp, bottomProp,
-    leftProp, rightProp, stylingProp, tagProp,
+  import { cornerProp, boolProp, bottomProp, leftProp,
+    rightProp, sizeProp, stylingProp, tagProp,
     topProp, transparentProp, usePropsCssClasses,
     variantProp } from '../../composables';
   import type { SetupContext } from 'vue';
@@ -36,6 +36,7 @@
     ...rightProp(),
     ...bottomProp(),
     ...leftProp(),
+    ...sizeProp(),
     ...cornerProp(),
     ...stylingProp(),
     ...variantProp(),
@@ -60,7 +61,7 @@
   // prettier-ignore
   // Composable to handle the CSS Classes.
   const { cornerCssClass, transparentCssClass,
-    stylingCssClass, variantCssClass } =
+    sizeCssClass, stylingCssClass, variantCssClass } =
       $(usePropsCssClasses());
 
   // Determine whether badge is floating.
@@ -70,6 +71,7 @@
 
   // Create the CSS classes based on context.
   const cssClasses: unknown = $computed(() => [
+    sizeCssClass,
     cornerCssClass,
     stylingCssClass,
     variantCssClass,
@@ -94,13 +96,11 @@
 
   .w-badge
     cursor: default
-    white-space: nowrap
+    line-height: 1
     box-sizing: content-box
-    padding: var(--badge-padding, $badge__padding)
-    min-width: var(--badge-min-width, $badge__min-width)
-    font-size: var(--badge-font-size, $badge__font-size)
-    font-weight: var(--badge-font-weight, $badge__font-weight)
-    line-height: var(--badge-line-height, $badge__line-height)
+    white-space: nowrap
+    padding: $badge__padding
+    min-width: $badge__min-width
 
     +corner-tile
     +corner-circle
@@ -146,59 +146,88 @@
       transform: translate(50%, 50%)
       +absolute($bottom: 0, $right: 0, $z: 1)
 
+    &--small
+      font-size: var(--badge-small-font-size, $badge-small__font-size)
+
+    &--normal
+      font-size: var(--badge-normal-font-size, $badge-normal__font-size)
+
+    &--large
+      font-size: var(--badge-large-font-size, $badge-large__font-size)
+
     &--transparent
       opacity: var(--badge-transparent-opacity, $badge-transparent__opacity)
 
+    &--circle
+      padding: var(--badge-circle-padding, $badge-circle__padding)
+
+    &--circle:not(&--dot)
+      min-width: var(--badge-circle-min-width, $badge-circle__min-width)
+
     &--pill:not(&--dot)
-      padding: var(--badge-pill-padding, $badge-pill__padding)
-      min-width: var(--badge-pill-min-width, $badge-pill__min-width)
       border-radius: var(--badge-pill-radius, $badge-pill__radius)
 
-    &--round:not(&--dot)
-      border-radius: var(--badge-round-radius, $badge-round__radius)
+    &--round#{&}--small:not(&--dot)
+      border-radius: var(--badge-small-round-radius, $badge-small__radius)
+
+    &--round#{&}--normal:not(&--dot)
+      border-radius: var(--badge-normal-round-radius, $badge-normal__radius)
+
+    &--round#{&}--large:not(&--dot)
+      border-radius: var(--badge-large-round-radius, $badge-large__radius)
 
     &--primary#{&}--flat,
     &--primary#{&}--elevate
       color: var(--badge-primary-color, var(--primary-color, $primary-color))
       background: border-box var(--badge-primary-bg, var(--primary-bg, $primary-bg))
 
-    &--primary#{&}--plain,
+    &--primary#{&}--plain
+      color: var(--badge-primary-plain-color, var(--primary-bg, $primary-bg))
+
     &--primary#{&}--outline
-      color: var(--badge-primary-bg, var(--primary-bg, $primary-bg))
+      color: var(--badge-primary-outline-color, var(--primary-bg, $primary-bg))
 
     &--standard#{&}--flat,
     &--standard#{&}--elevate
       color: var(--badge-standard-color, var(--standard-color, $standard-color))
       background: border-box var(--badge-standard-bg, var(--standard-bg, $standard-bg))
 
-    &--standard#{&}--plain,
+    &--standard#{&}--plain
+      color: var(--badge-standard-plain-color, var(--standard-bg, $standard-bg))
+
     &--standard#{&}--outline
-      color: var(--badge-standard-bg, var(--standard-bg, $standard-bg))
+      color: var(--badge-standard-outline-color, var(--standard-bg, $standard-bg))
 
     &--success#{&}--flat,
     &--success#{&}--elevate
       color: var(--badge-success-color, var(--success-color, $success-color))
       background: border-box var(--badge-success-bg, var(--success-bg, $success-bg))
 
-    &--success#{&}--plain,
+    &--success#{&}--plain
+      color: var(--badge-success-plain-color, var(--success-bg, $success-bg))
+
     &--success#{&}--outline
-      color: var(--badge-success-bg, var(--success-bg, $success-bg))
+      color: var(--badge-success-outline-color, var(--success-bg, $success-bg))
 
     &--danger#{&}--flat,
     &--danger#{&}--elevate
       color: var(--badge-danger-color, var(--danger-color, $danger-color))
       background: border-box var(--badge-danger-bg, var(--danger-bg, $danger-bg))
 
-    &--danger#{&}--plain,
+    &--danger#{&}--plain
+      color: var(--badge-danger-plain-color, var(--danger-bg, $danger-bg))
+
     &--danger#{&}--outline
-      color: var(--badge-danger-bg, var(--danger-bg, $danger-bg))
+      color: var(--badge-danger-outline-color, var(--danger-bg, $danger-bg))
 
     &--warning#{&}--flat,
     &--warning#{&}--elevate
       color: var(--badge-warning-color, var(--warning-color, $warning-color))
       background: border-box var(--badge-warning-bg, var(--warning-bg, $warning-bg))
 
-    &--warning#{&}--plain,
+    &--warning#{&}--plain
+      color: var(--badge-warning-plain-color, var(--warning-bg, $warning-bg))
+
     &--warning#{&}--outline
-      color: var(--badge-warning-bg, var(--warning-bg, $warning-bg))
+      color: var(--badge-warning-outline-color, var(--warning-bg, $warning-bg))
 </style>
