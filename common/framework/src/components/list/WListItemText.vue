@@ -49,6 +49,7 @@
     &--header
       text-transform: uppercase
       color: $list-item-text-header__color
+      margin: $list-item-text-header__margin
       letter-spacing: $list-item-text-header__spacing
 
     &--caption

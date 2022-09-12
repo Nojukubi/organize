@@ -1,9 +1,9 @@
 <template lang="pug">
-  w-dialog(@close="close")
-    w-card
+  w-dialog.habit-create(@close="close")
+    w-card.habit-create__body
       w-input(
         v-model="name",
-        label="name")
+        label="Name")
 
       template(#footer)
         w-button(@click="save")
@@ -39,4 +39,8 @@
 
 <style lang="sass" scoped>
   @use '~@stylize/sass-mixin' as *
+
+  .habit-create
+    &__body
+      +size(400px)
 </style>

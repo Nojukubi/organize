@@ -11,20 +11,12 @@
 </template>
 
 <script lang="ts" setup>
-  // prettier-ignore
-  import { WLayout, WContent,
-    useGlobalConfig } from '@internal/framework';
   import { provide } from 'vue';
-  import AppHeader from './AppHeader.vue';
-  import AppFooter from './AppFooter.vue';
-  import AppDrawer from './AppDrawer.vue';
+  import { WLayout, WContent } from '@internal/framework';
+  import AppHeader from './layout/AppHeader.vue';
+  import AppFooter from './layout/AppFooter.vue';
+  import AppDrawer from './layout/AppDrawer.vue';
   import { useLocations } from './plugins/router';
-
-  // Composable to handle the Global Config.
-  const { changeGlobalConfig } = useGlobalConfig();
-
-  // Change the framework global configuration.
-  changeGlobalConfig({ iconType: 'svg' });
 
   // Provide the available route locations.
   provide('routeLocations', useLocations());
@@ -40,6 +32,7 @@
 
   .application
     min-height: 100vh
+    font-size: 14px
     font-family: Roboto, sans-serif
 
     &__calendar

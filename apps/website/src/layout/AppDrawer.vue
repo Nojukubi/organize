@@ -43,7 +43,7 @@
 </script>
 
 <style lang="sass" scoped>
-  @use '@stylize/sass-mixin' as *
+  @use '~@stylize/sass-mixin' as *
 
   .app-drawer
     border-right: 1px solid #eee
